@@ -16,7 +16,7 @@ int main()
         cout<<"has two real roots:"<<endl<<"x1="<<x1<<","<<"x2="<<x2;
     }
     if(d<0){
-        jp = -b/(2*a);
+        jp = 0-b/(2*a);
         ip = sqrt(-d)/(2*a);
         cout<<"has two complex roots:"<<endl;
         cout<<"x1="<<jp<<"+"<<ip<<"i"<<endl;

@@ -17,10 +17,10 @@ int main()
         printf("x1=%.5f;x2=%.5f",x1,x2);
     }
     if(d<0){
-        jp = -b/(2*a);
+        jp = 0-b/(2*a);
         ip = sqrt(-d)/(2*a);
         printf("x1=%.5f+%.5fi;",jp,ip);
-        printf("x1=%.5f-%.5fi",jp,ip);
+        printf("x2=%.5f-%.5fi",jp,ip);
     }
 
 }
