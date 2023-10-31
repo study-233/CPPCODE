@@ -6,8 +6,8 @@ int main()
 {
     double a,b,c,d,x1,x2,jp,ip;
     scanf("%lf%lf%lf",&a,&b,&c);
-    d=b*b-4*a*c;
-    if(d==0){  
+    d=b*b-4*a*c; //计算判别式
+    if(d==0){  //判断并输出
         x1 = -b/(2*a);
         printf("x1=x2=%.5f",x1);
     }
