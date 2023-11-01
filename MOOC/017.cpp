@@ -2,15 +2,14 @@
 #include <stdio.h>
 using namespace std;
 int main(){
-    int n,num=0;
-    double sum=0;
+    int n=0,num=0,i,sum=0;
     scanf("%d",&n);
-    for(;n;n--){
+    for(i=n;i;i--){
         scanf("%d",&num);
         sum+=num;
         num=0;
     }
-    printf("%d %.5f",sum,sum/n);
+    printf("%ld %.5f",sum,double(sum/n));
     return 0;
 
 }
