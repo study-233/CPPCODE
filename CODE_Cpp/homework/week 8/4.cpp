@@ -1,17 +1,28 @@
 #include <iostream>
 #include <stdio.h>
 using namespace std;
+int a[4][4];
 int main(){
-    freopen("D:\\cppcode\\cppcode\\MOOC\\in.txt","r",stdin);
-    int a[4][4];
-    int x1[4][4]={{1,1,1,1},{0,1,1,1},{0,0,1,1},{0,0,0,1}};
-    int x2[4][4]={{1,1,1,1},{1,1,1,0},{1,1,0,0},{1,0,0,0}};
+    //freopen("D:\\cppcode\\cppcode\\MOOC\\in.txt","r",stdin);
     for(int i=0;i<4;++i){
         for(int j=0;j<4;++j){
             cin>>a[i][j];
         }
     }
-    if(a==x1||a==x2) cout<<"YES";
-    else cout<<"NO";
-    
+    int flag=1;
+    for(int i=0;i<4;++i){
+        for(int j=0;j<4;++j){
+            if(i>j){
+                if(a[i][j]!=0) flag=0;
+            }
+            cin>>a[i][j];
+        }
+    }
+    if(flag==1){
+        cout<<"YES";
+    }
+    if(flag==0){
+        cout<<"NO";
+    }
+    return 0;
 }
