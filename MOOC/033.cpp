@@ -1,3 +1,4 @@
+//033:图像模糊处理
 #include <iostream>
 #include <stdio.h>
 using namespace std;
