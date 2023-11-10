@@ -1,19 +1,18 @@
 #include <iostream>
 #include <stdio.h>
 using namespace std;
-//用递归 求Pell数列第k项
-int Pell(int k){
-    if(a[k]!=0) return a[k];
-    a[k]=(2*Pell(k-1)+Pell(k-2))%32767;
-    return a[k];
-}
+
+int a[999999+1000]={0,1,2}; // 存储数列a各项数取模后的值
+
 int main(){
     //freopen("D:\\cppcode\\cppcode\\MOOC\\in.txt","r",stdin);
-    int n,x;
-    cin>>n;
-    for(int i=0;i<n;i++){
-        cin>>x;
-        cout<<Pell(x)<<endl;
-    }
-    return 0;
+    int n, x; 
+	for(int i = 3; i <= 1000000; ++i)
+		a[i] = (2*a[i-1] + a[i-2])%32767;       //计算数列a各项数取模后的值
+	cin >> n;
+	for(int i = 1; i <= n; ++i){
+		cin >> x;
+		cout << a[x] << endl;
+	}
+	return 0;
 }
