@@ -4,11 +4,11 @@
 using namespace std;
 
 int bitManipulation3(int n, int i) {
-return ((1<<i)^n);
+return (((-1>>i))^n);
 }
 
 int main() {
-    freopen("E:\\cppcode\\cppcode\\MOOC\\in.txt","r",stdin);
+    freopen("E:\\Codefield\\cppcode\\MOOC\\in.txt","r",stdin);
 	int n, i, t;
 	cin >> t;
 	while (t--) { 
