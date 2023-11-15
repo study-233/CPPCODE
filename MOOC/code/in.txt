@@ -1,1 +1,2 @@
-I am studying Programming language C in Peking University
+4 1 2 3 4
+4 4 3 2 1
