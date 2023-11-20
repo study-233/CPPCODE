@@ -1,1 +1,4 @@
-abcdefgfedcba
+3
+chongqing
+beijing
+shanghai
