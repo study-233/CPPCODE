@@ -3,16 +3,17 @@
 #include <stdio.h>
 #include <cstring>
 using namespace std;
-void * MyMax(void * p,int size,int n,int (*compare)(void*,void*)){
+void * MyMax(void * p,int size,int n,int (*compare)(void*,void*)){		//void类型可以被转换为其他任何类型
+	char* pi = (char*) p ;		//  强制类型转换为char*	char占一字节
     int j=0,max=0;
     int i=0;
     for(;i<n;i++){
-        if(max<compare(p,p+size*i)){
-            max=compare(p,p+size*i);
-            j=i;
+        if(max<compare(pi+size*i,pi)){		//调用比较函数
+            max=compare(pi+size*i,pi);		//找出差值最大的数
+            j=i;							//用 pi+size*i 表示指针位置
         }
     }
-    
+    return (pi+size*j) ;
 }
 int Compare1(void * n1,void * n2)
 {
