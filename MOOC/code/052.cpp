@@ -11,8 +11,9 @@ int main(){
 	z = 30;
 	
 	int * a[3]  = { &x, &y,&z};
-	for(int**p = a ;p < a + 3; ++p) 
+	for(int** p = a ;p < a + 3; ++p) 
 			cout<< * (*p) << endl;
 	return 0;
 	
 }
+
