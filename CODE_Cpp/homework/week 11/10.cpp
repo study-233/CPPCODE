@@ -8,12 +8,12 @@ int main(){
     int r=sizeof(a)/sizeof(int);
     int x;
     cin>>x;
-    while (l<r){
+    while (l<=r){
         int k = (l+r)/2;
         if(a[k]==x){cout<<"yes";break;}
         else if(a[k]<x) r=k;
         else l=k;
     }
-    if(l==r) cout<<"no";
+    if(l>r) cout<<"no";
 }
 
