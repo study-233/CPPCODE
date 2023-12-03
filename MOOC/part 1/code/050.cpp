@@ -4,11 +4,11 @@
 #include <cstring>
 using namespace std;
 void Memcpy( void * src, void * dest, int size){
-char *pdest = (char*) dest;
-char *psrc = (char*) src;
-for(int i=size-1;i>=0;--i){
-    * (pdest+i) = *(psrc+i);
-}
+	char *pdest = (char*) dest;
+	char *psrc = (char*) src;
+	for(int i=size-1;i>=0;--i){
+		* (pdest+i) = *(psrc+i);
+	}
 }
 
 void Print(int * p,int size){
