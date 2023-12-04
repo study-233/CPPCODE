@@ -3,12 +3,12 @@
 using namespace std;
 double GetDoubleFromString(char * str){
     static char *start = NULL;
-    if(str) start=str;
     double x=0;
     bool point=true;   //区分整数部分与小数部分 true->整数
     int count=1;    //小数点后位数
+    if(str!=NULL) start=str;  
+    if(*start=='\0') return 0;
     for(;!(*start<='9' && *start >='0' || *start=='.');start++);
-    if(start==NULL) return 0;
     for(;(*start<='9' && *start >='0' || *start=='.');start++){
         if(*start<='9' && *start >='0'){
             if(point) x=x*10+(double)(*start-'0');
