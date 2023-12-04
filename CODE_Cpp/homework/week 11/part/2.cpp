@@ -17,9 +17,9 @@ int  main()
         for (int  j=p+1;j<6;j++){
             if(index[p]->salary > index[j]->salary) p=j;
         }
-        temp = index[p];
-        index[p] = index[j];
-        index[j] = temp;
+        *temp = *index[p];
+        *index[p] = *index[j];
+        *index[j] = *temp;
     }
     for(int  k=0;k<6;k++){
         cout  <<  index[k]->name  <<  "  "<<  index[k]->id  <<  "  "  <<  index[k]->salary  <<  endl;        
