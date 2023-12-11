@@ -1,7 +1,7 @@
 /**/
 #include <bits/stdc++.h>
 using namespace std;
-set<int> a={1,2,3};
+set<int> a={1,2,5};
 int main(){
     //freopen("E:\\CPPCODE\\MOOC\\in.txt","r",stdin);
     ios_base::sync_with_stdio(false);
@@ -9,6 +9,9 @@ int main(){
 
     set<int>::iterator p;
     p=a.upper_bound(2);
+    cout<<*p;
+    p=a.end();
+    p--;
     cout<<*p;
     return 0;
 }

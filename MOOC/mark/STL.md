@@ -39,7 +39,7 @@
 
 ## 平衡二叉树数据结构
 
-### multset<T> st   复杂度log(n)
+### multiset<T> st   复杂度log(n)
 
 #### 基本
     排序规则：a<b
@@ -75,3 +75,20 @@
                 bool second;
             }
     !result.second == true 表示插入不成功
+
+### multimap
+    typedef multimap<T1,T2> MAP_STD
+        struct {
+            T1 first;
+            T2 second;
+        }
+        按照first排序 a.first < b.first
+    MAP_STD 等价于 multimap<T1,T2>
+
+    typedef multimap<T1,T2> MP
+    MP mp;
+    mp.insert(make_pair(,))
+### map
+
+    可以使用[],插入查找
+    下标为关键字，返回值为first与关键字相同的元素的second
