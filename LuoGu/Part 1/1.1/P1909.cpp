@@ -2,11 +2,12 @@
 #include <bits/stdc++.h>
 using namespace std;
 int const N=1e5+5;
+set<int> st;
 int main(){
     //freopen("E:\\CPPCODE\\in.txt","r",stdin);
     ios_base::sync_with_stdio(false);
     cin.tie(nullptr);cout.tie(nullptr);
-
+    set<int>::iterator p;
     int need;
     int num,pr,price;
     cin>>need;
@@ -19,7 +20,8 @@ int main(){
             temp-=num;
             price+=pr;
         }
-        if(price<min) min=price;
+        st.insert(price);
     }
-    cout<<min;
+    p=st.begin();
+    cout<<*p;
 }
