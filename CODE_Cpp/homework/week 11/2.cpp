@@ -16,6 +16,7 @@ int main(){
     }
     cout<<max(a,0,n-1);
 }
+
 int max(int* a,int low,int high){   
     if(low==high) return a[low];    //输出值
     int mid = (low+high)/2;     //取中值 mid
