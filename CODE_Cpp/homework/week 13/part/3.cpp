@@ -2,13 +2,14 @@
 #include  <cstring>
 using  namespace  std;
 //前向声明类Employee
-
+class Employee;
 class  Manager
-{
+{friend class Employee;
     public:
         Manager(int,const char*,int);
         ~Manager();
         void printEmployee(Employee&);
+        friend void  printManager(Manager  &m)
     private:
             int  id;
             char  *name;
@@ -17,7 +18,7 @@ class  Manager
 class  Employee
 {
 
-    private:
+        private:
             int  id;
             char  *name;
             int  age;
@@ -62,6 +63,6 @@ int  main()
         Manager  m1(1001,  "zhangsan",  22);
         printManager(m1);                                              //调用友元函数输出Manager信息
         Employee  e1(2001,  "lisi",  18);
-                m1.printEmployee(e1);                                                  //通过友元类Manager输出Employee信息
+        m1.printEmployee(e1);                                  //通过友元类Manager输出Employee信息
         return  0;
 }
