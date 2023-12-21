@@ -20,25 +20,33 @@ IntStack::IntStack(int  s)
 {
 size=s;
 pos=0;
-        
+stack=new int[size];
 }
 
 IntStack::~IntStack()
 {
-
+delete []stack;
         
 }
 
 void  IntStack::Push(int  data)
 {
+if(pos==size){
+    cout<<"full";
+    exit(0);
+}
+stack[pos]=data;
+pos++;
 
-        
 }
 
 void  IntStack::Pop(int  &data)
 {
-
-        
+if(pos==0){
+    cout<<"empty";
+    exit(0);
+}
+pos--;
 }
 
 void  IntStack::Print()
