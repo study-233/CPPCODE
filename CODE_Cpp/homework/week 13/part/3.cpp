@@ -9,7 +9,7 @@ class  Manager
         Manager(int,const char*,int);
         ~Manager();
         void printEmployee(Employee&);
-        friend void  printManager(Manager  &m)
+        friend  void  printManager(Manager &);
     private:
             int  id;
             char  *name;
@@ -17,11 +17,14 @@ class  Manager
 };
 class  Employee
 {
-
+        public:
+                friend Manager;
+                Employee(int  pId,  const  char  *pN,  int  pa);
+                ~Employee();
         private:
-            int  id;
-            char  *name;
-            int  age;
+                int  id;
+                char  *name;
+                int  age;
 };
 Manager::Manager(int  pId,  const  char  *pN,  int  pa)
 {
@@ -45,11 +48,14 @@ void  printManager(Manager  &m)            //  友元函数printManager的头部
 }
 Employee::Employee(int  pId,  const  char  *pN,  int  pa)
 {
-
+    name=new char[strlen(pN)+1];
+    id=pId;
+    strcpy(name,pN);
+    age=pa;
 }
 Employee::~Employee()
 {
-
+        delete []name;
 }
 void  Manager::printEmployee(Employee  &e)
 {
