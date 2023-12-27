@@ -13,7 +13,14 @@ class Rectangle:public Point{
     public:
         Point p;
     private:
-        int longth;
-        int wide;
-
+        float l;
+        float w;
+        float Getl(){return l;}
+        float Getw(){return w;}
+}
+int main(){
+    float x,y,l,w;
+    cin>>x>>y>>l>>w;
+    Rectangle R1;
+    R1.InitP
 }
