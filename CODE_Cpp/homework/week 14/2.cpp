@@ -12,15 +12,22 @@ class Point{    //基类Point类的声明
 class Rectangle:public Point{
     public:
         Point p;
+        void Initlw(float l_=0,float w_=0){l=l_;w=w_;}
+        float Getl(){return l;}
+        float Getw(){return w;}
     private:
         float l;
         float w;
-        float Getl(){return l;}
-        float Getw(){return w;}
-}
+
+};
 int main(){
     float x,y,l,w;
     cin>>x>>y>>l>>w;
     Rectangle R1;
-    R1.InitP
+    R1.InitP(x,y);
+    R1.Initlw(l,w);
+    cin>>x>>y;
+    R1.Move(x,y);
+    cout<<R1.GetX()<<" "<<R1.GetY()<<" "<<R1.Getl()<<" "<<R1.Getw();
+
 }
