@@ -5,6 +5,7 @@ class Document {
     protected:
         string Name;
     public:
+        Document(){}
         Document(string name) {
             Name = name;
         }
@@ -22,14 +23,17 @@ class Book : public Document {
         }
 
         void PrintNameOf() override {
-            cout << "Name of book: " << Name <<" "<<PageCount<< endl;
+            cout << "Name of book: " << Name << endl;
         }
 };
 
 int main(){
     string name;
     long pageCount;
-    Book myBook(name);
+    string x;
+    cin>>x;
+    cin>>name>>pageCount;
+    Book myBook(name,pageCount);
     myBook.PrintNameOf();
     return 0;
 }
