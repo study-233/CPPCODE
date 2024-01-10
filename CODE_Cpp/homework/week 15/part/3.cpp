@@ -24,9 +24,11 @@ public:
 };
 
 class  Manager  :  public  Person  {
+
 public:
     Manager(string name): Person(name) { salary = 8000; level = 4; } 
     float  MonthSalary() {return salary;}
+
 };
 
 class  Partime_Technician  :  public  Person  {
@@ -40,9 +42,14 @@ class  Sales_Manager  :  public  Person  {
 private:
     float sales;
 public:
-    Sales_Manager(string name, float sales):Person(name), sales(sales) { level = 3; setSalary(); } 
-    void setSalary() { salary = 5000 + sales * 0.005; } 
-    void setSales(float sales) { this->sales = sales; setSalary(); } 
+    Sales_Manager(string name):Person(name),sales(0){
+        level = 3;
+        salary = 5000;
+    }
+    void SetSumSales(float sales) {
+        this->sales = sales;
+        salary += sales * 0.005;
+    }
     float  MonthSalary() {return salary;}
 
 };
@@ -51,14 +58,18 @@ class  Partime_Sales  :  public  Person  {
 private:
     float sales;
 public:
-    Partime_Sales(string name, float sales):Person(name), sales(sales) { level = 1; setSalary(); } 
-    void setSalary() { salary = sales * 0.04; } 
-    void setSales(float sales) { this->sales = sales; setSalary(); } 
+        Partime_Sales(string name):Person(name),sales(0){
+            level = 1;
+        }
+        void SetSales(float sales)  {
+            this->sales = sales;
+            salary = sales * 0.04;
+        }
     float MonthSalary() {return salary;}
 
 };
 int Person::count=0;
-
+Person::Person(string  name):name(name),number(++count),salary(0){}
 int  main()
 {
         int  numOfPersons;
@@ -90,8 +101,8 @@ int  main()
                 cout << "Input sum of sales:\n";
                 int sales;
                 cin >> sales;
-                personArray[i] = new Sales_Manager(aName, sales);
-
+                personArray[i] = new Sales_Manager(aName);
+                personArray[i]->SetSumSales(sales);
                                         cout  <<"A  Sales_Manager  is  added."<<endl;
                                         break;
                     }
@@ -99,8 +110,8 @@ int  main()
                 cout << "Input his/her sales:\n";
                 int sales;
                 cin >> sales;
-                personArray[i] = new Partime_Sales(aName, sales);
-
+                personArray[i] = new Partime_Sales(aName);
+                personArray[i]->SetSales(sales);
                                         cout  <<"A  Partime_Sales  is  added."<<endl;
                                         break;
                     }
