@@ -5,7 +5,7 @@ typedef long long ll;
 const int SIZE=10005;
 int n;
 int x,y,z;
-ll X[10005],Y[10005],Z[10005],ans;
+ll X[10005],Y[10005],Z[10005],nums[10005],num;
 
 int main(){
     //freopen("E:\\CPPCODE\\in.txt","r",stdin);
@@ -16,13 +16,18 @@ int main(){
 	for(int i=0;i<n;i++){
 		cin>>X[i]>>Y[i]>>Z[i];
 	}
-	sort(X,X+n);sort(Y,Y+n);sort(Z,Z+n);
-    x = X[n / 2];
-    y = Y[n / 2];
-    z = Z[n / 2];
-    for(int i = 0 ; i < n ; ++i){
-        ans += abs(x - X[i]) + abs(y - Y[i]) + abs(z - Z[i]);
+	for(int j=0;j<n;j++){
+        x=X[j];
+        y=Y[j];
+        z=Z[j];
+        num=0;
+        for(int i = 0 ; i < n ; ++i){
+            num += abs(x - X[i]) + abs(y - Y[i]) + abs(z - Z[i]);
+        }
+        nums[j]=num;
     }
-    cout<<ans;
+    sort(nums,nums+n);
+
+    cout<<nums[0];
     return 0;
 }
