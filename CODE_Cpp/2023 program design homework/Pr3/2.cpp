@@ -6,19 +6,25 @@ using namespace std;
 
 class Student{
 public:
+    static int counter;
+    int id;
+    string name;
+
     Student(string name_) : name(name_),id(counter++) {}
     void printStuent(){
         cout<<id<<"-"<<name<<" ";
     }
-
-    static int counter;
-    int id;
-    string name;
 };
 int Student::counter = 0; 
 
 class Major{
 public:
+
+    static int counter;
+    int id;
+    string name;
+    vector<Student*> students;
+
     Major(string name_):name(name_),id(counter++){}
 
     void printMajor(){
@@ -29,10 +35,7 @@ public:
         cout << endl;
     }
 
-    static int counter;
-    int id;
-    string name;
-    vector<Student*> students;
+
 };
 int Major::counter = 0; 
 
@@ -44,7 +47,6 @@ int main(){
     vector<Student*> students;
     vector<Major*> majors;
     string command, name;
-    int preId;
     while (cin >> command) {
         if (command == "s") {
             cin >> name;
@@ -57,20 +59,37 @@ int main(){
         else if (command == "n") {
             for(auto Student : students)
                 Student->printStuent();
+            cout<<endl;
         }
         else if (command == "l") {
             for(auto Major : majors)
                 Major->printMajor();
         }
         else if (command == "a") {
-            
+            int student_id, major_id;
+            cin>>student_id>>major_id; 
+            Student* student = students[student_id];
+            Major* major = majors[major_id];
+            major->students.push_back(student);
         }
 
         else if (command == "d") {
+            int student_id, major_id;
+            cin >> student_id >> major_id;
+            Student* student = students[student_id];
+            Major* major = majors[major_id];
+            major->students.erase(remove(major->students.begin(), major->students.end(), student), major->students.end());
 
+            
         }
         else if (command == "v") {
-
+            int student_id, old_major_id, new_major_id; 
+            cin >> old_major_id >> student_id >> new_major_id;
+            Student* student = students[student_id];
+            Major* old_major = majors[old_major_id];
+            Major* new_major = majors[new_major_id];
+            new_major->students.push_back(student);
+            old_major->students.erase(remove(old_major->students.begin(), old_major->students.end(), student), old_major->students.end());
         }
         else if (command == "e")
             break;
