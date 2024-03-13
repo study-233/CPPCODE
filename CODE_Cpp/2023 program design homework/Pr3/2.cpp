@@ -6,9 +6,9 @@ using namespace std;
 
 class Student{
 public:
-    static int counter;
-    int id;
     string name;
+    int id;
+    static int counter;
 
     Student(string name_) : name(name_),id(counter++) {}
     void printStuent(){
@@ -19,10 +19,10 @@ int Student::counter = 0;
 
 class Major{
 public:
-
-    static int counter;
-    int id;
     string name;
+    int id;
+    static int counter;
+
     vector<Student*> students;
 
     Major(string name_):name(name_),id(counter++){}
