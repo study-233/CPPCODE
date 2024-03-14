@@ -17,7 +17,7 @@ class OperatorToken;
 class BracketToken;
 class ExprToken;
 
-// 瀛楃涓茶浆鎹负鏁板瓧
+// 字符串转换为数字
 float helpStringToNum(const std::string &text)
 {
     float ret;
@@ -27,19 +27,19 @@ float helpStringToNum(const std::string &text)
     return ret;
 }
 
-// 鐢ㄤ簬閬嶅巻鐨勮闂€呮帴鍙�
+// 用于遍历的访问者接�?
 class Visitor
 {
     public:
         virtual void apply(Token *token) = 0;
 };
 
-// 鏍囪瘑绗︽娊璞�
+// 标识符抽�?
 class Token
 {
     public:
-        const std::string text;     // 鍘熸枃鍓湰
-        const int type;             // 鏍囪瘑绗︾被鍨嬶紝鏂逛究鍔ㄦ€佺被鍨嬭浆鎹�
+        const std::string text;     // 原文副本
+        const int type;             // 标识符类型，方便动态类型转�?
 
         virtual void visit(Visitor *visitor);
     protected:
@@ -49,13 +49,13 @@ class Token
         virtual ~Token() {}
 };
 
-// 閬嶅巻榛樿琛屼负锛氳璁块棶鑰呯湅鍒拌嚜宸�
+// 遍历默认行为：让访问者看到自�?
 void Token::visit(Visitor *visitor)
 {
     visitor->apply(this);
 };
 
-// 鏁板瓧鏍囪瘑绗�
+// 数字标识�?
 class NumToken : public Token
 {
     public:
@@ -67,7 +67,7 @@ class NumToken : public Token
         { }
 };
 
-// 杩愮畻绗︽爣璇嗙
+// 运算符标识符
 class OperatorToken : public Token
 {
     public:
@@ -78,7 +78,7 @@ class OperatorToken : public Token
             ,op(op) { }
 };
 
-// 鎷彿鏍囪瘑绗�
+// 括号标识�?
 class BracketToken : public Token
 {
     public:
@@ -87,7 +87,7 @@ class BracketToken : public Token
         { }
 };
 
-// 琛ㄨ揪寮忔爣璇嗙
+// 表达式标识符
 class ExprToken : public Token
 {
     private:
@@ -149,7 +149,7 @@ class ExprToken : public Token
         }
 };
 
-// 鎵撳嵃璁块棶鑰咃細杈撳嚭杩愮畻杩囩▼
+// 打印访问者：输出运算过程
 class PrintVistor : public Visitor
 {
     private:
@@ -173,7 +173,7 @@ class PrintVistor : public Visitor
         }
 };
 
-// 璇嶆眹鍒嗘瀽锛屼粠瀛楃涓茬敓鎴愬熀纭€鏍囪瘑绗�
+// 词汇分析，从字符串生成基础标识�?
 std::vector<Token *> parse(std::string text)
 {
     std::vector<Token *> vec;
@@ -206,7 +206,7 @@ std::vector<Token *> parse(std::string text)
     return vec;
 }
 
-// 鍒ゆ柇鏄惁涓鸿繍绠楋紝涓斾紭鍏堢骇涓庢寚瀹氫紭鍏堢骇鐩稿悓
+// 判断是否为运算，且优先级与指定优先级相同
 bool is_expr(Token *lhs, Token *op, Token *rhs, bool priority = true)
 {
     if (lhs->type != ExprType
@@ -217,7 +217,7 @@ bool is_expr(Token *lhs, Token *op, Token *rhs, bool priority = true)
     return _op && (!priority ^ (_op->op == '*' || _op->op == '/'));
 }
 
-// 鏍规嵁鍥涘垯杩愮畻娉曞垯褰掔害鏍囪瘑绗�
+// 根据四则运算法则归约标识�?
 void compile(std::vector<Token *> &vec)
 {
     for (int i = 0; i < vec.size(); ++i)
@@ -232,7 +232,7 @@ void compile(std::vector<Token *> &vec)
     while (vec.size() > 1)
     {
         bool flag = false;
-        // 褰掔害锛歟xpr ::= '(' expr ')'
+        // 归约：expr ::= '(' expr ')'
         for (int i = 0; i < vec.size() - 2; ++i)
         {
             if (vec[i]->type == LeftBracket && vec[i + 2]->type == RightBracket
@@ -249,8 +249,8 @@ void compile(std::vector<Token *> &vec)
             if (flag) break;
         }
         if (flag) continue;
-        // 褰掔害锛歟xpr ::= expr '*' expr
-        // 褰掔害锛歟xpr ::= expr '/' expr
+        // 归约：expr ::= expr '*' expr
+        // 归约：expr ::= expr '/' expr
         for (int i = 0; i < vec.size() - 2; ++i)
         {
             if (is_expr(vec[i], vec[i + 1], vec[i + 2], true))
@@ -266,8 +266,8 @@ void compile(std::vector<Token *> &vec)
             if (flag) break;
         }
         if (flag) continue;
-        // 褰掔害锛歟xpr ::= expr '+' expr
-        // 褰掔害锛歟xpr ::= expr '-' expr
+        // 归约：expr ::= expr '+' expr
+        // 归约：expr ::= expr '-' expr
         for (int i = 0; i < vec.size() - 2; ++i)
         {
             if (is_expr(vec[i], vec[i + 1], vec[i + 2]))
