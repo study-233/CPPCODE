@@ -17,12 +17,9 @@ int main(){
 		cin>>X[i]>>Y[i]>>Z[i];
 	}
 	for(int j=0;j<n;j++){
-        x=X[j];
-        y=Y[j];
-        z=Z[j];
         num=0;
         for(int i = 0 ; i < n ; ++i){
-            num += abs(x - X[i]) + abs(y - Y[i]) + abs(z - Z[i]);
+            num += abs(X[j] - X[i]) + abs(Y[j] - Y[i]) + abs(Z[j] - Z[i]);
         }
         nums[j]=num;
     }
