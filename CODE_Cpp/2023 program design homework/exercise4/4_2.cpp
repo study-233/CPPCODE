@@ -27,19 +27,19 @@ float helpStringToNum(const std::string &text)
     return ret;
 }
 
-// 用于遍历的访问者接�?
+// 用于遍历的访问者接口
 class Visitor
 {
     public:
         virtual void apply(Token *token) = 0;
 };
 
-// 标识符抽�?
+// 标识符抽象
 class Token
 {
     public:
         const std::string text;     // 原文副本
-        const int type;             // 标识符类型，方便动态类型转�?
+        const int type;             // 标识符类型，方便动态类型转换
 
         virtual void visit(Visitor *visitor);
     protected:
@@ -49,13 +49,13 @@ class Token
         virtual ~Token() {}
 };
 
-// 遍历默认行为：让访问者看到自�?
+// 遍历默认行为：让访问者看到自�?
 void Token::visit(Visitor *visitor)
 {
     visitor->apply(this);
 };
 
-// 数字标识�?
+// 数字标识�?
 class NumToken : public Token
 {
     public:
@@ -78,7 +78,7 @@ class OperatorToken : public Token
             ,op(op) { }
 };
 
-// 括号标识�?
+// 括号标识�?
 class BracketToken : public Token
 {
     public:
@@ -173,11 +173,11 @@ class PrintVistor : public Visitor
         }
 };
 
-// 词汇分析，从字符串生成基础标识�?
+// 词汇分析，从字符串生成基础标识�?
 std::vector<Token *> parse(std::string text)
 {
     std::vector<Token *> vec;
-    for (int i = 0; i < text.length(); ++i)
+    for (long unsigned int i = 0; i < text.length(); ++i)
     {
         switch (text[i])
         {
@@ -217,7 +217,7 @@ bool is_expr(Token *lhs, Token *op, Token *rhs, bool priority = true)
     return _op && (!priority ^ (_op->op == '*' || _op->op == '/'));
 }
 
-// 根据四则运算法则归约标识�?
+// 根据四则运算法则归约标识符
 void compile(std::vector<Token *> &vec)
 {
     for (int i = 0; i < vec.size(); ++i)
@@ -270,7 +270,7 @@ void compile(std::vector<Token *> &vec)
         // 归约：expr ::= expr '-' expr
         for (int i = 0; i < vec.size() - 2; ++i)
         {
-            if (is_expr(vec[i], vec[i + 1], vec[i + 2]))
+            if (is_expr(vec[i], vec[i + 1], vec[i + 2],false))
             {
                 if (i > 0 && vec[i - 1]->type == OperatorType
                         && (dynamic_cast<OperatorToken *>(vec[i - 1])->op == '*'
