@@ -3,57 +3,75 @@
 using namespace std;
 #define ll long long
 #define endl '\n'
-const ll N = 2e5 + 9;
+char orlights[5];
+char lights[5];
+char result[5];
 
-int aim_lights[5][6]={0};
-int PUZZLE[5][6]={0};
+int Getbit(char c,int i){       // 读取第i位
+    return ( c >> i ) & 1 ;
+}
 
-void read(){
-    for(int i=0;i<5;i++){
-        for(int j=0;j<6;j++){
-            cin>>aim_lights[i][j];
-        }
+void Setbit(char & c,int i,int v){      //设置第i位
+    if(v) c |= (1 << i) ;
+    else c &= ~(1 << i) ;
+}
+
+void Flipbit(char & c,int i){       //翻转第i位
+    c ^= (1 << i) ;
+}
+
+void Output(int t,char result[]){       //输出
+    cout << "PUZZLE #"<< t << endl;
+    for(int i = 0;i < 5; i++){
+         for(int j = 0;j < 6; j++){
+            cout<< Getbit(result[i],j);
+            if(j<5)
+                cout<<" ";
+         }
+         cout << endl;
     }
-}
-void change(int i,int j){
-    if(i>=0 && i<=4 && j>=0 && j<=5)
-        aim_lights[i][j] = (aim_lights[i][j]+1) % 2;
-}
-void solve(){
-    for(int i=0;i<5;i++){
-        for(int j=0;j<6;j++){
-            if(aim_lights[i][j]==1){
-                change(i,j);
-                change(i+1,j);
-                change(i,j+1);
-                change(i-1,j);
-                change(i,j-1);
-                PUZZLE[i][j]=1;
-            }
-        }
-    }    
-}
-void print_PUZZLE(){
-    for(int i=0;i<5;i++){
-        for(int j=0;j<6;j++){
-            cout<<PUZZLE[i][j]<<" ";
-        }
-        cout<<endl;
-    }    
 }
 int main(){
     //freopen("E:\CPPCODE\in.txt","r",stdin);
     ios_base::sync_with_stdio(false);
     cin.tie(nullptr);cout.tie(nullptr);
     
-    int t;
-    cin>>t;
-    for(int i=1;i<=t;i++){
-        read();
-        solve();
-        cout<<"PUZZLE #"<<i<<endl;
-        print_PUZZLE();
+    int T;
+    cin>>T;
+    for(int t=1;t<=T;t++){
+        for(int i=0;i<5;i++){
+            for(int j=0;j<6;j++){
+                int s;
+                cin>>s;
+                Setbit(orlights[i],j,s);
+            }
+        }
+        for(int n=0;n<64;n++){
+            int switchs=n;      //假设第一行开关状态
+            memcpy(lights,orlights,sizeof(orlights));
+            for(int i=0;i<5;i++){
+                result[i]=switchs;
+                for(int j=0;j<6;j++){
+                    if(Getbit(switchs,j)){      //翻转左右的灯
+                        if(j>0)
+                            Flipbit(lights[i],j-1);
+                        Flipbit(lights[i],j);
+                        if(j<5)
+                            Flipbit(lights[i],j+1);
+                    }
+                }
+                if(i<4)         
+                    lights[i+1] ^= switchs;      //翻转下一行的灯
 
+                switchs = lights[i];        //下一行开关状态
+            }
+
+            if(lights[4] == 0){
+                Output(t,result);
+                break;
+            }
+        }
     }
+
     return 0;
 }
