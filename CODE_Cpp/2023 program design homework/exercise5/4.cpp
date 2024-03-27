@@ -3,9 +3,9 @@
 using namespace std;
 #define ll long long
 #define endl '\n'
-char orlights[5];
-char lights[5];
-char result[5];
+char orlights[10];
+char lights[10];
+char result[10];
 
 int Getbit(char c,int i){       // 读取第i位
     return ( c >> i ) & 1 ;
@@ -60,7 +60,7 @@ int main(){
                             Flipbit(lights[i],j+1);
                     }
                 }
-                if(i<4)         
+                if(i<5)         
                     lights[i+1] ^= switchs;      //翻转下一行的灯
 
                 switchs = lights[i];        //下一行开关状态
