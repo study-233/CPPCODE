@@ -3,18 +3,19 @@
 using namespace std;
 #define ll long long
 #define endl '\n'
-int maps[100][100]={0};
+int maps[10][10]={0};
 static int res = 0;
 
 void move(int x,int y,int m,int n){
-    if(x>=0 && y>=0 && x<m && y<n && maps[x][y]==1){
+    if(x>=0 && y>=0 && x<m && y<n && maps[x][y]!=0){
         res++;
         maps[x][y]=0;
-
         move(x-1,y,m,n);
-        move(x,y-1,m,n);
-        move(x+1,y,m,n);
         move(x,y+1,m,n);
+        move(x+1,y,m,n);
+        move(x,y-1,m,n);
+
+
         
     }
 
