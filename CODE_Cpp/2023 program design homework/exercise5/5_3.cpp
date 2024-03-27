@@ -3,10 +3,11 @@ using namespace std;
 int main()
 {
 	int t;
-    int n,m,line=100,ans=0;
+    int n,m,line=100,ans;
 
 	cin>>t;
 	while(t--){
+		ans=0;
 		cin>>n>>m;
 		int mp[n+1];
 		for(int i=1;i<=n;i++) cin>>mp[i];
@@ -21,7 +22,8 @@ int main()
 			ans=max(ans,mp[r+1]-mp[r-m]-1);    //因为要找最大的,所以用Max函数 
 			r++;
 		}
-		cout<<ans<<endl; 
+		cout<<ans<<endl;
+
 	}
 	return 0;
 }
