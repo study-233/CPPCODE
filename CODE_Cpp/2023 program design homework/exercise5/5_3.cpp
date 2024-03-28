@@ -19,7 +19,7 @@ int main()
 		mp[n+1]=line+1;
 		int r=m;
 		while(r<=n){         
-			ans=max(ans,mp[r+1]-mp[r-m]-1);    //因为要找最大的,所以用Max函数 
+			ans=max(ans,mp[r+1]-mp[r-m]-1); 
 			r++;
 		}
 		cout<<ans<<endl;
