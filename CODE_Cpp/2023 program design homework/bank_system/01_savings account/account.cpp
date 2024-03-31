@@ -2,7 +2,7 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-SavingsAccount::SavingsAccount(int date,int id_,double rate_):date(date),id(id_),rate(rate_){
+SavingsAccount::SavingsAccount(int date,int id_,double rate_):lastDate(date),id(id_),rate(rate_){
     cout<<'#'<<id<<"is created"<<endl;
 };
 

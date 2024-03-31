@@ -6,7 +6,7 @@
             "type": "shell",
             "command": "g++",
             "args": [
-                "${file}",
+                "${fileDirname}\\*.cpp",
                 "-o",
                 "${fileDirname}\\bin\\${fileBasenameNoExtension}.exe",
                 "-g",
@@ -47,7 +47,7 @@
             "args": [
                 "-fdiagnostics-color=always",
                 "-g",
-                "${file}",
+                "${fileDirname}\\*.cpp",
                 "-o",
                 "${fileDirname}\\bin\\${fileBasenameNoExtension}.exe"
             ],
