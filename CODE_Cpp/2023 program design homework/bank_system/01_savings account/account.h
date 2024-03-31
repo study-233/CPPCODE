@@ -4,10 +4,10 @@
 class SavingsAccount{
 private:
     int id;
-    double balance=0;
+    double balance;
     double rate;
     int lastDate;
-    double accumulation=0;
+    double accumulation;
     double accumulate(int date);
     void record(int date,double amount);
     int getId();
