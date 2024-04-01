@@ -12,18 +12,22 @@ private:
     Date lastDate;
     double accumulation;
     static double total;
-    double accumulate(Date date);
-    void record(Date date,double amount);
-    int getId();
-    double getBalance();
-    double getRate();
-    double getTotal();
+
+    double accumulate(const Date &date);
+    void record(const Date &date,double amount,const string & desc);
+
 public:
-    SavingsAccount(Date date,string id,double rate);
+
+    SavingsAccount(const Date &date,const string & id,double rate);
+    string getId(){return id;};
+    double getBalance(){return balance;};
+    double getRate(){return rate;};
+    static double getTotal(){return total;};
+    
     void show();
-    void deposit(Date date,double amount);
-    void withdraw(Date date,double amount);
-    void settle(Date date);
+    void deposit(const Date &date,double amount,const string & desc);
+    void withdraw(const Date &date,double amount,const string & desc);
+    void settle(const Date &date);
 
 
 };

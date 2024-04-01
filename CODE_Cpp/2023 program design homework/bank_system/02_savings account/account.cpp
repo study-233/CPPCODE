@@ -5,60 +5,48 @@ using namespace std;
 
 double SavingsAccount::total=0;
 
-SavingsAccount::SavingsAccount(Date date,string id_,double rate_):lastDate(date),id(id_),rate(rate_),balance(0),accumulation(0){
-    cout<<lastDate<<"\t#"<<id<<" is created"<<endl;
+SavingsAccount::SavingsAccount(const Date &date,const string & id_,double rate_):lastDate(date),id(id_),rate(rate_),balance(0),accumulation(0){
+    lastDate.show();
+    cout<<"\t#"<<id<<" created"<<endl;
 };
 
-double SavingsAccount::accumulate(Date date){
-    return accumulation + balance*(date-lastDate);
+double SavingsAccount::accumulate(const Date &date){
+    return accumulation + balance * date.distance(lastDate);
 };
 
-void SavingsAccount::record(Date date,double amount){
+void SavingsAccount::record(const Date &date,double amount,const string & desc){
     accumulation=accumulate(date);
     lastDate=date;
     amount = floor(amount * 100 + 0.5) / 100;
     balance+=amount;
     total+=amount;
-    cout<<lastDate<<"\t#"<<id<<"\t";
+    lastDate.show();
+    cout<<"\t#"<<id<<"\t";
     cout.setf(ios::left);
     cout.width(5);
-    cout<<amount<<"   "<<balance<<endl;
+    cout<<amount<<"   "<<balance<<"\t"<<desc<<endl;
 };
 
 void SavingsAccount::show(){
-    cout<<"#"<<id<<"\tBalance: "<<balance;
+    cout<<id<<"\tBalance: "<<balance;
 };
 
-void SavingsAccount::deposit(Date date,double amount){
-    record(date,amount);
+void SavingsAccount::deposit(const Date &date,double amount,const string & desc){
+    record(date,amount,desc);
 };
 
-void SavingsAccount::withdraw(Date date,double amount){
+void SavingsAccount::withdraw(const Date &date,double amount,const string & desc){
     if(amount>balance)
         cout<<"not enough money"<<endl;
     else    
-        record(date,-amount);
+        record(date,-amount,desc);
 };
 
-void SavingsAccount::settle(Date date){
-    double interest=accumulate(date)*rate/365; //计算年息
+void SavingsAccount::settle(const Date &date){
+    double interest=accumulate(date)*rate/date.distance(Date(date.getYear() - 1, 1, 1)); //计算年息
     if(interest!=0)
-        record(date,interest);
+        record(date,interest,"interest");
     accumulation=0;
 };
 
-
-
-string SavingsAccount::getId(){
-    return id;
-};
-double SavingsAccount::getBalance(){
-    return balance;
-};
-double SavingsAccount::getRate(){
-    return rate;
-};
-double SavingsAccount::getTotal(){
-    return total;
-};
 
