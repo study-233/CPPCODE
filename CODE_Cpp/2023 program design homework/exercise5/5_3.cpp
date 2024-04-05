@@ -18,7 +18,7 @@ int main()
 		mp[0]=0;
 		mp[n+1]=line+1;
 		int r=m;
-		while(r<=n){         
+		while(r<=n){
 			ans=max(ans,mp[r+1]-mp[r-m]-1); 
 			r++;
 		}

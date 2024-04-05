@@ -1,14 +1,15 @@
-#include<iostream>
+#include <iostream>
 using namespace std;
-int main()
-{
-    double r,girth,area;
-    const double PI=3.1415;
-    cout<<"please input radius:\n";
-    cin>>r;
-    girth=2*PI*r;
-    area=PI*r*r;
-    cout<<"radius"<<r<<endl;
-    cout<<"girth"<<girth<<endl;
-    cout<<"area"<<area<<endl;
+int main(){
+    int a = 2,res = 0;
+    switch(a){
+        case 1:
+            res += a;
+        case 2:
+            res += 2 * a;
+        case 3:
+            res += 3;
+            break;
+    }
+    cout << res << endl;
 }
