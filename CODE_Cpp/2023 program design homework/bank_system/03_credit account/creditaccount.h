@@ -4,7 +4,7 @@
 #include "date.h"           //需要使用Date
 #include "accumulator.h"    //用来记录利息
 #include <string>
-z`
+
 
 //信用账户，能够在信用额度内消费，需要支付利息
 class CreditAccount :public Account{

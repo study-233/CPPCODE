@@ -6,8 +6,9 @@
 using namespace std;
 
 CreditAccount::CreditAccount(Date date, string id, double credite, double rate, double fee)
-:Account(date,id),acc(date,0), credit(credite),rate(rate),fee(fee)//对父类，以及类对象初始化
-{}
+:Account(date,id),acc(date,0), credit(credite),rate(rate),fee(fee){} //对父类，以及类对象初始化
+
+
 //完成对类的，展示内容
 
 // 信用账户存钱操作
@@ -47,11 +48,12 @@ void CreditAccount::settle(Date date) {
         //cout<<endl;
         cout << "\t#" << getId() << " \t"<<interest<<"\t"<<getBalance() <<"\t"<<"annual fee"<< endl;
 
-    }else{
-    change_balance(interest);//在余额中加上利息
-    date.show();
-    //cout<<endl;
-    cout << "\t#" << getId() << " \t"<<interest<<"\t"<<getBalance() <<"\t"<<"interest"<< endl;
+    }
+    else{
+        change_balance(interest);//在余额中加上利息
+        date.show();
+        //cout<<endl;
+        cout << "\t#" << getId() << " \t"<<interest<<"\t"<<getBalance() <<"\t"<<"interest"<< endl;
     }
     interest=0;
     acc.reset(date,0);

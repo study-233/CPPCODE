@@ -40,7 +40,7 @@ void SavingsAccount::settle(Date date) {
     change_balance(interest);//在余额中加上利息
 
     date.show();
-    cout << "\t#" << getId() << " \t"<<floor(interest*100)/100<<"\t"<<getBalance() <<"\t"<<"interest"<< endl;
+    cout << "\t#" << getId() << " \t"<<floor(interest*100 + 0.5)/100<<"\t"<<getBalance() <<"\t"<<"interest"<< endl;
     //这里对年息进行保留两位小数
 
 
