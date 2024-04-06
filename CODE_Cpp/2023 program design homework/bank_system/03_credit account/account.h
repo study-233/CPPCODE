@@ -1,78 +1,37 @@
-#ifndef ACCOUNT_H
-#define  ACCOUNT_H
-#include <bits/stdc++.h>
-#include "Date.h"
+//account.h
+#ifndef __ACCOUNT_H__
+#define __ACCOUNT_H__
+
+#include "date.h"
+#include <string>
 using namespace std;
 
 
-class Accumulator{
-    private:
-        Date lastDate;
-        double value;
-        double sum;
-    public:
-        Accumulator(Date date,double value);
-        double getdSum(Date date) const;
-        void change(Date date,double value);
-        void reset(Date date,double value);
-};
+//最基本的账户类
+class Account { //账户类
+private:
+    string id;				//账号
+	double balance;		//余额
+	//对于储蓄账户来说，这个余额是正值； 对于信用账户来说这个余额是负值
+
+	static double total;	//所有账户的总金额
+
+public:
+	//构造函数
+	Account(Date date, string id);// 由派生类来实现
+    void show() const;
+    double change_balance(double num);
+
+    string  getId() const { return id; }
+	double getBalance() const { return balance; }
+	static double getTotal() {
+        return total;
+    }
 
 
-
-class account{
-    private:
-        string id;
-        double balance;
-        double total;
-    public:
-        account(Date date,string id);
-        void record(Date date,double amount,const string desc);
-
-        void error(string msg) const;
-        int getId() const {return id;};
-        double getBalance() const {return balance;};
-        void show() const;    
-        static double getTotal(){return total;};
-};
-
-
-class SavingsAccount: public account{
-    private:
-        Accumulator acc;
-        double rate;
-
-    public:
-
-        SavingsAccount(Date date,string id,double rate);
-        double getRate() const {return rate;};
-        static double getTotal(){return total;};
-        
-        void deposit(const Date &date,double amount,const string desc);
-        void withdraw(const Date &date,double amount,const string desc);
-        void settle(Date date);
 
 
 };
 
-class CreditAccount: public account{
-    private:
-        Accumulator acc;
-        double rate;
-        double credit;
-        double fee;
+#endif //__ACCOUNT_H__
 
-    public:
-        double getDebt() const;
-        CreditAccount(Date date,string id,double credit,double rate,double fee);
-        double getCredit() const {return credit;};
-        double getRate() const {return rate;};
-        double getFee() const {return fee;};
-        double getAvailableCredit() const ;
-
-        void deposit(const Date &date,double amount,string desc);
-        void withdraw(const Date &date,double amount,string desc);
-        void settle(Date date);
-        void show() const;
-
-};
-#endif

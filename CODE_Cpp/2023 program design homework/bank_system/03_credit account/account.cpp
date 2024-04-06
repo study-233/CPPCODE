@@ -1,52 +1,31 @@
+//account.cpp
 #include "account.h"
-#include "Date.h"
-#include <bits/stdc++.h>
+#include "date.h"
+#include <cmath>
+#include <iostream>
+#include <string>
 using namespace std;
 
-double account::total=0;
+//静态变量初始化为0
+double Account::total = 0;
 
-SavingsAccount::SavingsAccount(Date date,string id_,double rate_):lastDate(date),id(id_),rate(rate_),balance(0),accumulation(0){
-    lastDate.show();
-    cout<<"\t#"<<id<<" created"<<endl;
-};
+//Account类相关成员函数的实现
+Account::Account(Date date, string id)
+: id(id), balance(0){
+    date.show();
+	cout << "\t#" << id << " created" << endl;
+}//构造函数，记录创建日期，账户id，以及年利率
 
-double SavingsAccount::accumulate(const Date &date){
-    return accumulation + balance * date.distance(lastDate);
-};
 
-void SavingsAccount::record(const Date &date,double amount,const string & desc){
-    accumulation=accumulate(date);
-    lastDate=date;
-    amount = floor(amount * 100 + 0.5) / 100;
+//展示id和余额
+void Account::show() const {
+	cout << id << "\tBalance: " << balance;
+}
+
+//改变余额，并且返回值是余额
+double Account::change_balance(double amount) {
     balance+=amount;
-    total+=amount;
-    lastDate.show();
-    cout<<"\t#"<<id<<"\t";
-    cout.setf(ios::left);
-    cout.width(5);
-    cout<<amount<<"   "<<balance<<"\t"<<desc<<endl;
-};
-
-void SavingsAccount::show(){
-    cout<<id<<"\tBalance: "<<balance;
-};
-
-void SavingsAccount::deposit(const Date &date,double amount,const string & desc){
-    record(date,amount,desc);
-};
-
-void SavingsAccount::withdraw(const Date &date,double amount,const string & desc){
-    if(amount>balance)
-        cout<<"not enough money"<<endl;
-    else    
-        record(date,-amount,desc);
-};
-
-void SavingsAccount::settle(const Date &date){
-    double interest=accumulate(date)*rate/date.distance(Date(date.getYear() - 1, 1, 1)); //计算年息
-    if(interest!=0)
-        record(date,interest,"interest");
-    accumulation=0;
-};
-
+    total+=amount; //总的余额记录在这里，是包含信用账户的贷款的，且信用账户的余额是负数
+    return balance;
+}
 
