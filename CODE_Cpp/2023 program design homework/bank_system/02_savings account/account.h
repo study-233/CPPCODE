@@ -1,7 +1,7 @@
-#ifndef ACCOUNT_H
-#define  ACCOUNT_H
+#ifndef __ACCOUNT_H__
+#define  __ACCOUNT_H__
 #include <bits/stdc++.h>
-#include "Date.h"
+#include "date.h"
 using namespace std;
 
 class SavingsAccount{

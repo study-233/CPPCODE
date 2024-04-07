@@ -2,7 +2,8 @@
 
 
 //就一个构造函数，初始状态余额是0，日累积为0
-Accumulator::Accumulator(Date date,double value): lastDate(date),value(value),sum(0){}
+Accumulator::Accumulator(Date date,double value)
+: lastDate(date), value(value), sum(0){}
 
 void Accumulator::change(Date date, double _value) {
     sum=sum+value*date.distance(lastDate);//记录上一个过程中的日累积

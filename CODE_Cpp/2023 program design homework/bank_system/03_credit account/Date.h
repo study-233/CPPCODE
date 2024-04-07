@@ -1,5 +1,5 @@
-#ifndef DATE_H
-#define  DATE_H
+#ifndef __DATE_H__
+#define  __DATE_H__
 
 
 class Date{

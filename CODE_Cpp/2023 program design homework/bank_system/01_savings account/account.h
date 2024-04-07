@@ -1,5 +1,5 @@
-#ifndef ACCOUNT_H
-#define  ACCOUNT_H
+#ifndef __ACCOUNT_H__
+#define  __ACCOUNT_H__
 
 class SavingsAccount{
 private:

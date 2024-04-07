@@ -14,7 +14,8 @@ Account::Account(Date date, string id)
 : id(id), balance(0){
     date.show();
 	cout << "\t#" << id << " created" << endl;
-}//构造函数，记录创建日期，账户id，以及年利率
+}
+//构造函数，记录创建日期，账户id，以及年利率
 
 
 //展示id和余额
@@ -22,10 +23,11 @@ void Account::show() const {
 	cout << id << "\tBalance: " << balance;
 }
 
-//改变余额，并且返回值是余额
-double Account::change_balance(double amount) {
+//改变余额
+void Account::record(Date date,double amount,string desc) {
     balance+=amount;
     total+=amount; //总的余额记录在这里，是包含信用账户的贷款的，且信用账户的余额是负数
-    return balance;
+    date.show();
+    cout << "\t#" << getId() << " \t"<<amount<<"\t"<<getBalance() <<"\t"<<desc<< endl;
 }
 
