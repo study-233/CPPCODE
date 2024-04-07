@@ -26,7 +26,7 @@ void Account::show() const {
 //改变余额
 void Account::record(Date date,double amount,string desc) {
 
-    amount = floor(amount * 100 + 0.5) / 100;
+    amount = floor(amount * 100 + 0.5) / 100;    //保留两位小数
     balance+=amount;
     total+=amount; //总的余额记录在这里，是包含信用账户的贷款的，且信用账户的余额是负数
     date.show();

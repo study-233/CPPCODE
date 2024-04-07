@@ -30,11 +30,12 @@ void SavingsAccount::withdraw(Date date, double amount, string desc){
 //结算利息
 void SavingsAccount::settle(Date date) {
 
-    acc.change(date,0);
-    interest=acc.getSum(date)*rate/date.distance(Date(date.getYear() - 1, 1, 1)); //计算年息
-    record(date,interest,"interest");//在余额中加上利息
+    if(date.getMonth()==1){
+        acc.change(date,0);
+        interest=acc.getSum(date)*rate/date.distance(Date(date.getYear() - 1, 1, 1)); //计算年息
+        record(date,interest,"interest");//在余额中加上利息
+    }
 
-    //这里对年息进行保留两位小数
 
 
 }

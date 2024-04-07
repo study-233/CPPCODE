@@ -26,10 +26,16 @@ void Account::show() const {
 //改变余额
 void Account::record(Date date,double amount,string desc) {
 
-    amount = floor(amount * 100 + 0.5) / 100;
+    amount = floor(amount * 100 + 0.5) / 100;    //保留两位小数
     balance+=amount;
     total+=amount; //总的余额记录在这里，是包含信用账户的贷款的，且信用账户的余额是负数
+    AccountRecord acr(date,this,amount,balance,desc);
+    recordMap[date]=acr;
     date.show();
     cout << "\t#" << getId()<<"\t"<<amount<<"\t"<<getBalance() <<"\t"<<desc<< endl;
 }
 
+//  查询
+	void query(Date date1,Date date2){
+        
+    };
