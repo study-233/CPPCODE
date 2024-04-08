@@ -5,14 +5,15 @@
 #include "date.h"
 #include "accountrecord.h"
 #include <string>
+#include <map>
 using namespace std;
 
-
+class AccountRecord;
 //最基本的账户类
 class Account { //账户类
 private:
-    string id;			//账号
-	double balance;		//余额
+    string id="";			//账号
+	double balance=0;		//余额
 	//对于储蓄账户来说，这个余额是正值； 对于信用账户来说这个余额是负值
 	
 	static double total;	//所有账户的总金额
@@ -34,7 +35,7 @@ public:
 	double getBalance() const { return balance; }
 	static double getTotal() {return total;}
 
-	void query(Date date1,Date date2) {};
+	static void query(Date &date1,Date &date2) {};
 
 
 };

@@ -27,7 +27,7 @@ public:
     void deposit(Date date,double amount,string desc);     //  存钱
     void withdraw(Date date,double amount,string desc);    //  取钱
     void settle(Date date);      //计算年息
-    void show();
+    virtual void show() const;
 
 
 };

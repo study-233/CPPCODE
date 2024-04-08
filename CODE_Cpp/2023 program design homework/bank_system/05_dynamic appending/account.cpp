@@ -1,13 +1,17 @@
 //account.cpp
 #include "account.h"
+#include "accountrecord.h"
 #include "date.h"
 #include <cmath>
 #include <iostream>
 #include <string>
+#include <map>
 using namespace std;
 
 //静态变量初始化为0
 double Account::total = 0;
+multimap<Date, AccountRecord> recordMap;		//所有账目
+multimap<Date, AccountRecord> Account::recordMap;
 
 //Account类相关成员函数的实现
 Account::Account(Date date, string id)
@@ -30,12 +34,18 @@ void Account::record(Date date,double amount,string desc) {
     balance+=amount;
     total+=amount; //总的余额记录在这里，是包含信用账户的贷款的，且信用账户的余额是负数
     AccountRecord acr(date,this,amount,balance,desc);
-    recordMap[date]=acr;
+    recordMap.insert(make_pair(date, acr));
     date.show();
     cout << "\t#" << getId()<<"\t"<<amount<<"\t"<<getBalance() <<"\t"<<desc<< endl;
 }
 
 //  查询
-	void query(Date date1,Date date2){
-        
-    };
+void query(Date date1,Date date2){
+    for(Date date=date1;date <= date2;date++){
+        auto it1 = recordMap.find(date);
+        if(it1 != recordMap.end()){
+            it1->second.show();
+        }
+
+    }
+};

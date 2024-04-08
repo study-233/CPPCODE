@@ -2,8 +2,11 @@
 #define __ACCOUNT_RECORD__
 
 #include <string>
+#include "date.h"
+#include "account.h"
 using namespace std;
 
+class Account;
 class AccountRecord{        //账目记录
     private:
         Date date;
@@ -12,8 +15,8 @@ class AccountRecord{        //账目记录
         double balance;
         string desc;
     public:
-        AccountRecord(Date date,const Account *account,double amount,double balance,string desc)
-        :data(data),account(account),amount(amount),balance(balance),desc(desc);
+        AccountRecord(Date &date,Account *account,double amount,double balance,string &desc);
+        void show()  ;
 };
 
 

@@ -48,7 +48,7 @@ void CreditAccount::settle(Date date) {
     acc.reset(date,0);
 }
 
-void CreditAccount::show() {        //子类需要重写
+void CreditAccount::show() const {        //子类需要重写
     cout << getId() << "\tBalance: " << getBalance()<<"\t"<<"Available credit:"<<credit+getBalance();
 
 }

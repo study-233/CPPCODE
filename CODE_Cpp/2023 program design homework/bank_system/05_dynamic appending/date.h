@@ -8,21 +8,62 @@ class Date{
         int month;
         int day;
         int totalDays;
+
     public:
+
+        Date();
         Date(int date,int month,int day);
+
+
         void show();
-        int getMaxDay() const;       //获得当月有多少天
         bool isLeapYear() const{      //判断当年是否为闰年
             return (year % 4 == 0 && year % 100 != 0) || year % 400 == 0;
-        }
-        int distance(const Date& date) const{   //计算两个日期之间是多少天
-            return totalDays - date.totalDays;
         }
         int getYear() const { return year; }
         int getMonth() const { return month; }
         int getDay() const { return day; }
 
-        bool operator < (const Date& date) const ;
+        int getMaxDay() const{ //获得当月有多少天
+            static int MonthDay[13] = { 0,31,28,31,30,31,30,31,31,30,31,30,31 };
+            
+            if (month==2 && isLeapYear()){
+                return 29;
+            }
+            return MonthDay[month];
+        }
+        static Date read();
+
+        //重置运算符
+
+        Date& operator+=(int day);
+        Date operator+(int day);
+
+        Date& operator-=(int day);
+        Date operator-(int day);
+
+
+        //++d，前置++
+        Date& operator++();
+        //d++，后置++
+        Date operator++(int);
+        //前置--
+        Date& operator--();
+        //后置--
+        Date operator--(int);
+
+        //两个日期相减：d1-d2
+        int operator-(const Date& d);
+
+        bool operator<(const Date& d)const;
+        bool operator<=(const Date& d);
+        bool operator>(const Date& d);
+        bool operator>=(const Date& d);
+        bool operator==(const Date& d);
+        bool operator!=(const Date& d);
+
+
+
+
 };
 
 

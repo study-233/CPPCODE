@@ -32,9 +32,10 @@ void SavingsAccount::settle(Date date) {
 
     if(date.getMonth()==1){
         acc.change(date,0);
-        interest=acc.getSum(date)*rate/date.distance(Date(date.getYear() - 1, 1, 1)); //计算年息
+        interest=acc.getSum(date)*rate/(date-(Date(date.getYear() - 1, 1, 1))); //计算年息
         record(date,interest,"interest");//在余额中加上利息
     }
+
 
 
 
