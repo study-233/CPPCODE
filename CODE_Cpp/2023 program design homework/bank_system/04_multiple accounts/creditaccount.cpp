@@ -33,19 +33,20 @@ void CreditAccount::withdraw(Date date, double amount, string desc) {
 
 //结算利息
 void CreditAccount::settle(Date date) {
-    acc.change(date,0);
+    acc.change(date,getBalance());
     interest=acc.getSum(date)*rate; //计算利息
     //那个rate指的是日利率，按日欠款计息，将日累积直接乘以日利率就是利息
 
-    if(date.getMonth()==1&&date.getDay()==1){
-        interest-=fee;//处理年费
-        record(date,interest,"annual fee");//在余额中加上利息
+    if(date.getMonth()==1 && date.getDay()==1){
+        record(date,interest,"interest");
+        record(date,-fee,"annual fee");//在余额中加上利息
+    
     }
     else{
         record(date,interest,"interest");//在余额中加上利息
     }
     interest=0;
-    acc.reset(date,0);
+    acc.reset(date,getBalance());
 }
 
 void CreditAccount::show() {        //子类需要重写

@@ -12,7 +12,8 @@ void Accumulator::change(Date date, double _value) {
 }
 
 //计算利息后，将日累积归0
-void Accumulator::reset(Date date,double value) {
+void Accumulator::reset(Date date,double _value){
     lastDate=date;
-    sum=value;
+    value=_value;
+    sum=0;
 }
