@@ -1,19 +1,55 @@
-#include "accumulator.h"
+#include "creditaccount.h"
+#include <iostream>
+#include <cmath>
+#include <string>
+
+using namespace std;
+
+CreditAccount::CreditAccount(const Date &date, string id, double credite, double rate, double fee)
+: Account(date,id),acc(date,0),credit(credite),rate(rate),fee(fee) {} //对父类，以及类对象初始化
 
 
-//就一个构造函数，初始状态余额是0，日累积为0
-Accumulator::Accumulator(const Date &date,double value)
-: lastDate(date), value(value), sum(0){}
+//完成对类的，展示内容
 
-void Accumulator::change(Date &date, double _value) {
-    sum = sum + value*(date-lastDate);//记录上一个过程中的日累积
-    value=_value;//更新余额
-    lastDate=date;//更新日期
+// 信用账户存钱操作
+void CreditAccount::deposit(Date &date, double amount, string desc){
+
+    //cout<<getBalance()<<endl;
+    record(date,amount,desc);
+    acc.change(date,getBalance());
+
 }
 
-//计算利息后，将日累积归0
-void Accumulator::reset(const Date &date,double _value) {
-    lastDate=date;
-    value=_value;
-    sum=0;
+//信用账户取钱操作
+//取钱操作需要和信用对比一下
+void CreditAccount::withdraw(Date &date, double amount, string desc) {
+
+    if(credit+getBalance()-amount>=0){
+        record(date,-amount,desc);
+        acc.change(date,getBalance());
+    }
+    else{ cout<<"信用额度不足！！"<<endl; }
+}
+
+//结算利息
+void CreditAccount::settle(Date &date) {
+    acc.change(date,getBalance());
+    interest=acc.getSum(date)*rate; //计算利息
+    //那个rate指的是日利率，按日欠款计息，将日累积直接乘以日利率就是利息
+
+    if(date.getMonth()==1 && date.getDay()==1){
+        record(date,interest,"interest");
+        record(date,-fee,"annual fee");//在余额中加上利息
+    
+    }
+    else{
+        record(date,interest,"interest");//在余额中加上利息
+    }
+    interest=0;
+    acc.reset(date,getBalance());
+}
+
+void CreditAccount::show() const {        //子类需要重写
+    cout << getId() << "\tBalance: " << getBalance()<<"\t"<<"Available credit:"<<credit+getBalance();
+
 }

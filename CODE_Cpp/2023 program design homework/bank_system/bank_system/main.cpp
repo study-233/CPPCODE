@@ -1,4 +1,4 @@
-//step6.cpp
+//step7.cpp
 
 #include "date.h"
 #include "account.h"
