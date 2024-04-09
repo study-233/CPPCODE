@@ -20,77 +20,11 @@ using namespace std;
     string id, desc;
     Account* account;
     Date date1, date2;
-
+    void read_cmd();
 
 struct deleter {
     template <class T> void operator () (T* p) { delete p; }
 };
-
-void read_cmd(){
-    ifstream ifs;
-    ifs.open("commands.txt");
-
-    if(!ifs.is_open()){return;}
-
-    while(ifs>>cmd){
-        switch (cmd) {
-            case 'a'://增加账户
-            
-                ifs >> type >> id;
-
-                if (type == 's') {
-                    ifs >> rate;
-                    account = new SavingsAccount(date, id, rate);
-                }
-                else {
-                    ifs >> credit >> rate >> fee;
-                    account = new CreditAccount(date, id, credit, rate, fee);
-                }
-
-                accounts.push_back(account);
-
-                break;
-
-            case 'd'://存入现金
-
-                ifs >> index_ >> amount;
-                getline(ifs,desc);
-                accounts[index_]->deposit(date, amount, desc);
-
-                break;
-
-            case 'w'://取出现金
-
-                ifs >> index_ >> amount ;
-                getline(ifs,desc);
-                accounts[index_]->withdraw(date, amount, desc);
-
-                break;
-
-
-            case 'c'://改变日期
-
-                ifs >> day;
-                date = Date(date.getYear(), date.getMonth(), day);
-                    
-                break;
-
-            case 'n'://进入下个月
-
-                if (date.getMonth() == 12)
-                    date = Date(date.getYear() + 1, 1, 1);
-                else
-                    date = Date(date.getYear(), date.getMonth() + 1, 1);
-
-                for (vector<Account*>::iterator iter = accounts.begin(); iter != accounts.end(); ++iter)
-                    (*iter)->settle(date);
-
-                break;
-
-        }
-    }
-    ifs.close();
-}
 
 int main() {
 
@@ -238,4 +172,57 @@ int main() {
     ofs.close();
     return 0;
 
+}
+
+void read_cmd(){
+    ifstream ifs;
+    ifs.open("commands.txt");
+    if(!ifs.is_open()){return;}
+    while(ifs>>cmd){
+        switch (cmd) {
+            case 'a'://增加账户
+            
+                ifs >> type >> id;
+                if (type == 's') {
+                    ifs >> rate;
+                    account = new SavingsAccount(date, id, rate);
+                }
+                else {
+                    ifs >> credit >> rate >> fee;
+                    account = new CreditAccount(date, id, credit, rate, fee);
+                }
+                accounts.push_back(account);
+                break;
+
+            case 'd'://存入现金
+                ifs >> index_ >> amount;
+                getline(ifs,desc);
+                accounts[index_]->deposit(date, amount, desc);
+                break;
+
+            case 'w'://取出现金
+                ifs >> index_ >> amount ;
+                getline(ifs,desc);
+                accounts[index_]->withdraw(date, amount, desc);
+                break;
+
+
+            case 'c'://改变日期
+                ifs >> day;
+                date = Date(date.getYear(), date.getMonth(), day);
+                break;
+
+            case 'n'://进入下个月
+
+                if (date.getMonth() == 12)
+                    date = Date(date.getYear() + 1, 1, 1);
+                else
+                    date = Date(date.getYear(), date.getMonth() + 1, 1);
+                for (vector<Account*>::iterator iter = accounts.begin(); iter != accounts.end(); ++iter)
+                    (*iter)->settle(date);
+                break;
+
+        }
+    }
+    ifs.close();
 }
