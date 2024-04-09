@@ -7,7 +7,7 @@ Date::Date():year(1),month(1),day(1){};
 
 Date::Date(int year=0,int month=0,int day=0):year(year),month(month),day(day){
     if (day <= 0 || day > getMaxDay()){
-		throw runtime_error("日期错误");
+		throw DateException();
     }
 };
 

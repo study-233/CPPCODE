@@ -92,5 +92,6 @@
         "Caty",
         "datestr"
     ],
-    "C_Cpp.errorSquiggles": "disabled"
+    "C_Cpp.errorSquiggles": "disabled",
+    "cmake.sourceDirectory": "E:/CPPCODE/CODE_Cpp/2023 program design homework/bank_system/bank_system"
 }

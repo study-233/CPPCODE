@@ -33,7 +33,7 @@ void read_cmd(){
     while(ifs>>cmd){
         switch (cmd) {
             case 'a'://增加账户
-
+            
                 ifs >> type >> id;
 
                 if (type == 's') {

@@ -31,7 +31,16 @@ class Date{
             }
             return MonthDay[month];
         }
+
         static Date read();
+
+        class DateException : public exception{
+            public:
+        const char *what() const noexcept override{
+            return "日期错误，请重新输入";
+        }
+};
+
 
         //重置运算符
 
