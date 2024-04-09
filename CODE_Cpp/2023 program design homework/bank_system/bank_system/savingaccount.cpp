@@ -37,4 +37,3 @@ void SavingsAccount::settle(Date &date) {
     }
 
 }
-

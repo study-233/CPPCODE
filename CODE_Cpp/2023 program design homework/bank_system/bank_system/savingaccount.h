@@ -28,4 +28,3 @@ public:
 };
 
 #endif //ACCOUNT_CPP_SAVINGACCOUNT_H
-
