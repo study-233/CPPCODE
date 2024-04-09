@@ -1,6 +1,8 @@
 #ifndef __DATE_H__
 #define  __DATE_H__
 
+#include "iostream"
+using namespace std;
 
 class Date{
     private:
@@ -34,12 +36,12 @@ class Date{
 
         static Date read();
 
-        class DateException : public exception{
+        class DateException : public exception {
             public:
-        const char *what() const noexcept override{
-            return "日期错误，请重新输入";
-        }
-};
+                const char *what() const noexcept override{
+                    return "日期错误，请重新输入";
+                }
+        };
 
 
         //重置运算符
