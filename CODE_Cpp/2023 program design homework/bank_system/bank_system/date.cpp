@@ -18,13 +18,8 @@ void Date::show() const{
 // 读取日期
 Date Date::read(){
 	int year_,month_,day_;
-	string datestr;
-	cin>>datestr;
-	istringstream iss(datestr);
 	char separator;
-	if (!(iss >> year_ >> separator >> month_ >> separator >> day_)) {
-        cout<<"格式不对,请重新输入"<<endl;
-    }
+	cin >> year_ >> separator >> month_ >> separator >> day_;
 	return Date(year_,month_,day_);
 };
 
