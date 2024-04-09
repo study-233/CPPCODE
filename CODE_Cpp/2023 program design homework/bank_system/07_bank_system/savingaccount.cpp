@@ -23,8 +23,11 @@ void SavingsAccount::deposit(Date &date, double amount, string desc){
 //储蓄账户取钱操作
 void SavingsAccount::withdraw(Date &date, double amount, string desc){
 
-    record(date,-amount,desc);
-    acc.change(date,getBalance());
+    if(amount <= getBalance()) {
+        record(date, -amount, desc);
+        acc.change(date, getBalance());
+    }
+    else throw AccountException(this);
 }
 
 //结算利息

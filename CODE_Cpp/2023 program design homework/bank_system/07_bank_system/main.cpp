@@ -8,6 +8,8 @@
 #include <vector>
 #include <algorithm>
 #include <fstream>
+#include <stdexcept>
+
 using namespace std;
 
     Date date(2008, 11, 1);//起始日期
@@ -101,111 +103,139 @@ int main() {
     do{
 
         //显示日期和总金额
-
         date.show();
         cout << "\tTotal: " << Account::getTotal() << "\tcommand> ";
 
-        
-        if(cin >> cmd && cmd != 'e') ofs<<cmd<<" ";
-        else break;
+        cin>>cmd;
 
         switch (cmd) {
+            case 'a'://增加账户
+                try{
+                    cin >> type >> id;
+                    if(type == 's' || type == 'c'){
+                        ofs << endl << cmd << " ";
+                        ofs << type << " " << id << " ";
+                    }
+                    else throw runtime_error("账户类型错误");
+                }
+                catch (runtime_error& err) {
+                    cout << err.what() << endl;
+                }
 
-        case 'a'://增加账户
+                if (type == 's') {
+                    cin >> rate;
+                    ofs<<rate;
+                    account = new SavingsAccount(date, id, rate);
+                }
+                else {
+                    cin >> credit >> rate >> fee;
+                    ofs<<credit<<" "<<rate<<" "<<fee;
+                    account = new CreditAccount(date, id, credit, rate, fee);
+                }
 
-            cin >> type >> id;
-            ofs<<type<<" "<<id<<" ";
-            if (type == 's') {
-                cin >> rate;
-                ofs<<rate;
-                account = new SavingsAccount(date, id, rate);
-            }
-            else {
-                cin >> credit >> rate >> fee;
-                ofs<<credit<<" "<<rate<<" "<<fee;
-                account = new CreditAccount(date, id, credit, rate, fee);
-            }
+                accounts.push_back(account);
 
-            accounts.push_back(account);
+                break;
 
-            break;
+            case 'd'://存入现金
+                try{
+                    cin >> index_ >> amount;
+                    getline(cin, desc);
+                    if(index_ < 0 || index_ >= accounts.size()){
+                        throw runtime_error("The index you input is not exist.");
+                    }
+                    accounts[index_]->deposit(date, amount, desc);
 
-        case 'd'://存入现金
+                    ofs << endl << cmd << " ";
+                    ofs<<index_<<" "<<amount<<" ";
+                    ofs<<desc;
+                }
+                catch (runtime_error& err) {
+                    cout << err.what() << endl;
+                }
 
-            cin >> index_ >> amount;
-            ofs<<index_<<" "<<amount<<" ";
-            getline(cin, desc);
-            ofs<<desc;
-            accounts[index_]->deposit(date, amount, desc);
+                break;
 
-            break;
+            case 'w'://取出现金
 
-        case 'w'://取出现金
+                try{
+                    cin >> index_ >> amount;
+                    getline(cin, desc);
+                    if(index_ < 0 || index_ >= accounts.size()){
+                        throw runtime_error("The index you input is not exist.");
+                    }
+                    accounts[index_]->withdraw(date, amount, desc);
 
-            cin >> index_ >> amount;
-            ofs<<index_<<" "<<amount<<" ";
-            getline(cin, desc);
-            ofs<<desc;
-            accounts[index_]->withdraw(date, amount, desc);
+                    ofs << endl << cmd << " ";
+                    ofs<<index_<<" "<<amount<<" ";
+                    ofs<<desc;
+                }
+                catch (AccountException& err){
+                    cout << err.what() << endl;
+                }
+                catch (runtime_error& err) {
+                    cout << err.what() << endl;
+                }
 
-            break;
+                break;
 
-        case 's'://查询各账户信息
+            case 's'://查询各账户信息
 
-            for (size_t i = 0; i < accounts.size(); i++) {
+                for (size_t i = 0; i < accounts.size(); i++) {
 
-                cout << "[" << i << "] ";
+                    cout << "[" << i << "] ";
 
-                accounts[i]->show();
+                    accounts[i]->show();
 
-                cout << endl;
+                    cout << endl;
 
-            }
+                }
 
-            break;
+                break;
 
-        case 'c'://改变日期
+            case 'c'://改变日期
 
-            cin >> day;
-            ofs<<day;
-            if (day < date.getDay())
-                cout << "You cannot specify a previous day";
-            else if (day > date.getMaxDay())
-                cout << "Invalid day";
-            else
-                date = Date(date.getYear(), date.getMonth(), day);
-                
-            break;
+                cin >> day;
+                if (day < date.getDay())
+                    cout << "You cannot specify a previous day";
+                else if (day > date.getMaxDay())
+                    cout << "Invalid day";
+                else
+                    date = Date(date.getYear(), date.getMonth(), day);
+                    ofs << endl << cmd << " ";
+                    ofs<<day;                    
+                break;
 
-        case 'n'://进入下个月
+            case 'n'://进入下个月
 
-            if (date.getMonth() == 12)
-                date = Date(date.getYear() + 1, 1, 1);
-            else
-                date = Date(date.getYear(), date.getMonth() + 1, 1);
+                if (date.getMonth() == 12)
+                    date = Date(date.getYear() + 1, 1, 1);
+                else
+                    date = Date(date.getYear(), date.getMonth() + 1, 1);
 
-            for (vector<Account*>::iterator iter = accounts.begin(); iter != accounts.end(); ++iter)
-                (*iter)->settle(date);
+                for (vector<Account*>::iterator iter = accounts.begin(); iter != accounts.end(); ++iter)
+                    (*iter)->settle(date);
 
-            break;
+                break;
 
-        case 'q'://查询一段时间内的账目
-
-            date1 = Date::read();
-            date2 = Date::read();
-            Account::query(date1, date2);
-
-            break;
-
+            case 'q'://查询一段时间内的账目
+                try{
+                    date1 = Date::read();
+                    date2 = Date::read();
+                    Account::query(date1, date2);
+                }
+                catch (DateException & err){
+                    cout << err.what() << endl;
+                    if(cin.fail()) cin.clear();
+                }
+            default:
+                cout << "程序退出" <<endl;
+                break;
         }
-        ofs<<endl;
     } while (cmd != 'e');
 
-
-
-    ofs.close();
     for_each(accounts.begin(), accounts.end(), deleter());
-
+    ofs.close();
     return 0;
 
 }

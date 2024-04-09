@@ -2,6 +2,7 @@
 #define  __DATE_H__
 
 #include "iostream"
+
 using namespace std;
 
 class Date{
@@ -36,14 +37,6 @@ class Date{
 
         static Date read();
 
-        class DateException : public exception {
-            public:
-                const char *what() const noexcept override{
-                    return "日期错误，请重新输入";
-                }
-        };
-
-
         //重置运算符
 
         Date& operator+=(int day);
@@ -72,10 +65,13 @@ class Date{
         bool operator==(const Date& d);
         bool operator!=(const Date& d);
 
-
-
-
 };
 
+class DateException : public exception {
+    public:
+        const char *what() const noexcept override{
+            return "日期错误，请重新输入";
+        }
+};
 
 #endif

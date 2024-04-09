@@ -13,4 +13,4 @@ c 5
 d 0 5500 salary
 n
 c 15
-w 2 1500 buy a television
+w 2 1500 buy a television123 123 0

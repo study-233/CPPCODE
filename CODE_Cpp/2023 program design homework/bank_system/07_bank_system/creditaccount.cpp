@@ -28,7 +28,9 @@ void CreditAccount::withdraw(Date &date, double amount, string desc) {
         record(date,-amount,desc);
         acc.change(date,getBalance());
     }
-    else{ cout<<"信用额度不足！！"<<endl; }
+    else{ 
+        throw AccountException(this);
+    }
 }
 
 //结算利息
