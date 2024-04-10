@@ -27,6 +27,7 @@ int main(){
     catch (MyException& e) {
         cout << e.what() << endl;
     }
+    system("pause");
     return 0;
 
 }
