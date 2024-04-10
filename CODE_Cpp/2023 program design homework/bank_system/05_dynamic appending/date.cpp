@@ -35,11 +35,8 @@ Date Date::read(){
 bool Date::operator < (const Date& d) const
 {
 	if (year < d.year)
-	{
 		return true;
-	}
-	else if (year == d.year)
-	{
+	else if (year == d.year){
 		if (month < d.month)
 			return true;
 		else if ((month == d.month) && (day < d.day))

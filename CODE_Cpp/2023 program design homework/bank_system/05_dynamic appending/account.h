@@ -3,7 +3,6 @@
 #define __ACCOUNT_H__
 
 #include "date.h"
-#include "accountrecord.h"
 #include <string>
 #include <map>
 using namespace std;
