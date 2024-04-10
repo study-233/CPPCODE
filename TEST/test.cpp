@@ -1,15 +1,14 @@
-/**/
-#include <bits/stdc++.h>
+//student.h
+#ifndef _STUDENT_H     //防止重复包含和编译
+#define _STUDENT_H
+#include <string>
 using namespace std;
-#define ll long long
-#define endl '\n'
-
-int main(){
-    //freopen("E:\CPPCODE\in.txt","r",stdin);
-    ios_base::sync_with_stdio(false);
-    cin.tie(nullptr);cout.tie(nullptr);
-
-
-
-    return 0;
+class Student{
+    private:
+        int id;
+        string name;
+    public:
+        Student(int id_,string name_);
+        void getid() const{ return id; }
 }
+#endif
