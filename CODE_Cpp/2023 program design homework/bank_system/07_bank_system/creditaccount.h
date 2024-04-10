@@ -1,3 +1,4 @@
+//creditaccount.h
 #ifndef __CREDITACCOUNT_H__
 #define __CREDITACCOUNT_H__
 #include "account.h"        // 需要派生
@@ -33,4 +34,4 @@ public:
 };
 
 
-#endif 
+#endif //__CREDITACCOUNT_H__

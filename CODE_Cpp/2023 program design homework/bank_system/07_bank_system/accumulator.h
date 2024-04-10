@@ -1,3 +1,4 @@
+//accumulator.h
 #ifndef __ACCUMULATOR_H__
 #define __ACCUMULATOR_H__
 #include <bits/stdc++.h>
@@ -17,4 +18,4 @@ class Accumulator{
         void reset(const Date &date,double value);
 };
 
-#endif
+#endif  //__ACCUMULATOR_H__

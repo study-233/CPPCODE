@@ -1,3 +1,4 @@
+//accountrecord.h
 #ifndef __ACCOUNT_RECORD__
 #define __ACCOUNT_RECORD__
 
@@ -21,4 +22,4 @@ class AccountRecord{        //账目记录
 
 
 
-#endif
+#endif //__ACCOUNT_RECORD__

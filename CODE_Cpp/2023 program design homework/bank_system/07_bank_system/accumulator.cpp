@@ -1,5 +1,6 @@
-#include "accumulator.h"
+//accumulator.cpp
 
+#include "accumulator.h"
 
 //就一个构造函数，初始状态余额是0，日累积为0
 Accumulator::Accumulator(const Date &date,double value)

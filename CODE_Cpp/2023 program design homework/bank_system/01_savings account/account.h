@@ -2,7 +2,9 @@
 #define  __ACCOUNT_H__
 
 class SavingsAccount{
+    
 private:
+
     int id;
     double balance;
     double rate;
@@ -15,6 +17,7 @@ private:
     double getRate();
 
 public:
+
     SavingsAccount(int date,int id,double rate);
     void show();
     void deposit(int date,double amount);

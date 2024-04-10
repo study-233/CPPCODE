@@ -1,4 +1,4 @@
-
+//savingaccount.h
 #ifndef __SAVINGACCOUNT_H__
 #define __SAVINGACCOUNT_H__
 #include "account.h"        // 需要派生
@@ -27,4 +27,4 @@ public:
 
 };
 
-#endif //ACCOUNT_CPP_SAVINGACCOUNT_H
+#endif //__SAVINGACCOUNT_H__

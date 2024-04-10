@@ -54,4 +54,4 @@ public:
     }
 };
 
-#endif 
+#endif //__ACCOUNT_H__
