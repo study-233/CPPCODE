@@ -6,3 +6,4 @@ int main(){
     A a;
     cout<<"A";
 }
+ 
