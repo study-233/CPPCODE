@@ -5,8 +5,6 @@
 #include "date.h"
 #include <string>
 using namespace std;
-
-
 //最基本的账户类
 class Account { //账户类
 private:
@@ -24,15 +22,11 @@ public:
 	virtual void withdraw(Date date, double amount, string desc)=0;
 	virtual void settle(Date date)=0;
 
-
     void record(Date date,double amount,string desc);		//记录每一次操作
 
     string  getId() const { return id; }
 	double getBalance() const { return balance; }
 	static double getTotal() {return total;}
-
-
-
 
 };
 

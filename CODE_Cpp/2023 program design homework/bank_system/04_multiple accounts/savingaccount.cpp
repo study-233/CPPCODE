@@ -36,7 +36,5 @@ void SavingsAccount::settle(Date date) {
         record(date,interest,"interest");//在余额中加上利息
     }
 
-
-
 }
 

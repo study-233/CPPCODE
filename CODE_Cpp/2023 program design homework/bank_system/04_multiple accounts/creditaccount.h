@@ -4,8 +4,6 @@
 #include "date.h"           //需要使用Date
 #include "accumulator.h"    //用来记录利息
 #include <string>
-
-
 //信用账户，能够在信用额度内消费，需要支付利息
 class CreditAccount :public Account{
 private:
@@ -14,7 +12,6 @@ private:
     double rate;
     double fee;     //年费，每年需要缴纳一次年费，1月1日扣除
     double interest;        //利息，每月一结算
-
 
 public:
 
@@ -29,9 +26,7 @@ public:
     void settle(Date date);      //计算年息
     void show();
 
-
 };
-
 
 #endif 
 

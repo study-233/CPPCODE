@@ -129,10 +129,6 @@ int main() {
 
     } while (cmd != 'e');
 
-
-
-
-
     for_each(accounts.begin(), accounts.end(), deleter());
 
     return 0;
