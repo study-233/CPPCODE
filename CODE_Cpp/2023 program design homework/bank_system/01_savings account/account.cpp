@@ -7,7 +7,14 @@ SavingsAccount::SavingsAccount(int date,int id_,double rate_):lastDate(date),id(
 };
 
 double SavingsAccount::accumulate(int date){
-    return accumulation + balance*(date-lastDate);
+    return accumulation + balance*(date-lastDate); //计算日均余额
+};
+
+void SavingsAccount::settle(int date){
+    double interest=accumulate(date)*rate/365; //计算年息
+    if(interest!=0)
+        record(date,interest);
+    accumulation=0;
 };
 
 void SavingsAccount::record(int date,double amount){
@@ -36,12 +43,7 @@ void SavingsAccount::withdraw(int date,double amount){
         record(date,-amount);
 };
 
-void SavingsAccount::settle(int date){
-    double interest=accumulate(date)*rate/365; //计算年息
-    if(interest!=0)
-        record(date,interest);
-    accumulation=0;
-};
+
 
 
 
