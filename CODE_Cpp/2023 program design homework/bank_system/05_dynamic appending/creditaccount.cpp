@@ -16,7 +16,7 @@ void CreditAccount::deposit(Date &date, double amount, string desc){
 
     //cout<<getBalance()<<endl;
     record(date,amount,desc);
-    acc.change(date,getBalance());
+    acc.change(date,getBalance() > 0 ? 0 : getBalance());
 
 }
 
@@ -26,14 +26,14 @@ void CreditAccount::withdraw(Date &date, double amount, string desc) {
 
     if(credit+getBalance()-amount>=0){
         record(date,-amount,desc);
-        acc.change(date,getBalance());
+        acc.change(date,getBalance() > 0 ? 0 : getBalance());
     }
     else{ cout<<"信用额度不足！！"<<endl; }
 }
 
 //结算利息
 void CreditAccount::settle(Date &date) {
-    acc.change(date,getBalance());
+    acc.change(date,getBalance() > 0 ? 0 : getBalance());
     interest=acc.getSum(date)*rate; //计算利息
     //那个rate指的是日利率，按日欠款计息，将日累积直接乘以日利率就是利息
 

@@ -3,7 +3,6 @@
 #include <bits/stdc++.h>
 #include "date.h"
 using namespace std;
-
 class SavingsAccount{
 private:
     string id;
@@ -29,8 +28,6 @@ public:
     void withdraw(const Date &date,double amount,const string & desc);
     void settle(const Date &date);
 
-
 };
-
 
 #endif

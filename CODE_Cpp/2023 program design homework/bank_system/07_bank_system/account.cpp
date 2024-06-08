@@ -10,7 +10,6 @@ using namespace std;
 
 //静态变量初始化为0
 double Account::total = 0;
-multimap<Date, AccountRecord> recordMap;		//所有账目
 multimap<Date, AccountRecord> Account::recordMap;
 
 //Account类相关成员函数的实现
@@ -41,12 +40,10 @@ void Account::record(Date &date,double amount,string desc) {
 
 //  查询
 void Account::query(Date &date1,Date &date2){
-    for(Date date=date1;date <= date2;date++){
-        auto it = recordMap.find(date);
-        if(it != recordMap.end()){
-            for(int k = 0;k != recordMap.count(date);k++,it++)
-                it->second.show();
-        }
+    auto start = recordMap.lower_bound(date1);
+    auto end = recordMap.upper_bound(date2);
 
+    for (auto it = start; it != end; ++it) {
+        it->second.show();
     }
 };

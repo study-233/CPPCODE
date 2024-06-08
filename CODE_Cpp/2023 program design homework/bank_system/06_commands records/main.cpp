@@ -105,16 +105,21 @@ int main() {
         date.show();
         cout << "\tTotal: " << Account::getTotal() << "\tcommand> ";
 
-        
-        if(cin >> cmd && cmd != 'e') ofs<<cmd<<" ";
-        else break;
+        cin>>cmd;
 
         switch (cmd) {
 
         case 'a'://增加账户
 
             cin >> type >> id;
-            ofs<<type<<" "<<id<<" ";
+            if(type == 's' || type == 'c'){
+                ofs << endl << cmd << " ";
+                ofs << type << " " << id << " ";
+            }
+            else {
+                cout<<"账户类型错误"<<endl;
+                break;
+            }
             if (type == 's') {
                 cin >> rate;
                 ofs<<rate;
@@ -133,20 +138,31 @@ int main() {
         case 'd'://存入现金
 
             cin >> index_ >> amount;
-            ofs<<index_<<" "<<amount<<" ";
             getline(cin, desc);
-            ofs<<desc;
+            if(index_ < 0 || index_ >= accounts.size()){
+                cout<<"The index you input is not exist."<<endl;
+                break;
+            }
             accounts[index_]->deposit(date, amount, desc);
+            ofs << endl << cmd << " ";
+            ofs<<index_<<" "<<amount<<" ";
+            ofs<<desc;
 
             break;
 
         case 'w'://取出现金
 
             cin >> index_ >> amount;
-            ofs<<index_<<" "<<amount<<" ";
             getline(cin, desc);
-            ofs<<desc;
+            if(index_ < 0 || index_ >= accounts.size()){
+                cout<<"The index you input is not exist."<<endl;
+                break;
+            }
             accounts[index_]->withdraw(date, amount, desc);
+
+            ofs << endl << cmd << " ";
+            ofs<<index_<<" "<<amount<<" ";
+            ofs<<desc;
 
             break;
 
@@ -167,14 +183,20 @@ int main() {
         case 'c'://改变日期
 
             cin >> day;
-            ofs<<day;
-            if (day < date.getDay())
-                cout << "You cannot specify a previous day";
-            else if (day > date.getMaxDay())
-                cout << "Invalid day";
+            if (day < date.getDay()){
+                cout << "You cannot specify a previous day"<<endl;
+                break;                
+            }
+
+            else if (day > date.getMaxDay()){
+                cout << "Invalid day"<<endl;
+                break;
+            }
+
             else
                 date = Date(date.getYear(), date.getMonth(), day);
-                
+                ofs << endl << cmd << " ";
+                ofs<<day;                    
             break;
 
         case 'n'://进入下个月
@@ -198,14 +220,10 @@ int main() {
             break;
 
         }
-        ofs<<endl;
     } while (cmd != 'e');
-
-
 
     ofs.close();
     for_each(accounts.begin(), accounts.end(), deleter());
-
     return 0;
 
 }

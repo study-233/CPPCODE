@@ -142,6 +142,7 @@ int main() {
 
             case 'n'://进入下个月
 
+                
                 if (date.getMonth() == 12)
                     date = Date(date.getYear() + 1, 1, 1);
                 else
@@ -149,7 +150,8 @@ int main() {
 
                 for (vector<Account*>::iterator iter = accounts.begin(); iter != accounts.end(); ++iter)
                     (*iter)->settle(date);
-
+                    
+                ofs << endl << cmd << " ";
                 break;
 
             case 'q'://查询一段时间内的账目

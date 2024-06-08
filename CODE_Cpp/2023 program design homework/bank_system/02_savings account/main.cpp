@@ -41,7 +41,7 @@ cout << endl;
 
 for (int i = 0; i < n; i++) {
 
-accounts[i].settle(Date(2009, 1, 1));
+accounts[i].settle(Date(2009, 1, 2));
 
 accounts[i].show();
 
