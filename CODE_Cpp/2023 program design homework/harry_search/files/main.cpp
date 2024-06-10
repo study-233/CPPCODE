@@ -3,6 +3,7 @@
 #include <string>
 #include <vector>
 #include <algorithm>
+#include <sstream>
 
 using namespace std;
 
@@ -14,15 +15,15 @@ struct SearchResult {
     string book;    // 书名
 };
 // 结构体用于表示每页的内容
-struct Content {
-    
-}
+struct Page {
+    int num;
+    string content;
+};
 
 // 结构体用于表示每个章节的标题和内容
 struct Chapter {
     string title;
-    int page;
-    string content;
+    vector<Page> pages;
 };
 
 // 结构体用于表示每本书的书名和章节信息
@@ -47,15 +48,41 @@ vector<Book> readBooks(const vector<string>& filenames) {
             continue;
         }
 
+        Page page;
         Chapter chapter;
+        vector<Page> pages;
         string line;
-        bool newChapter = true;
+        int page_num;
+        
+        bool ischapter1 = true;
+
         while (getline(file, line)) {
-            if (line[0,6] == "Chapter") {
+            if (line.substr(0,7) == "Chapter" || line.substr(0,7) == "CHAPTER") {
+                //cout<< line <<endl;
+                if(ischapter1){
+                    ischapter1 = false;
+                }
+                else {
+                    chapter.pages = pages;
+                    chapters.push_back(chapter);
+                    pages.clear();
+                }
                 chapter.title = line;
+            }
+            else if ('0' < line[0] && line[0] <= '9' && line.size() < 4){
+                istringstream ss(line);
+                ss >> page.num;
+                pages.push_back(page);
+                //cout<<page.num<<endl;
+                page.content = "";
+                page.num = 0;
+            }
+            else {
+                page.content += line;
             }
 
         }
+        chapter.pages = pages;
         chapters.push_back(chapter);
 
         file.close();
@@ -71,19 +98,22 @@ vector<SearchResult> searchNameInBooks(const vector<Book>& books, const string& 
     vector<SearchResult> results;
 
     for (const auto& book : books) {
-        for (size_t i = 0; i < book.chapters.size(); ++i) {
-            size_t pos = book.chapters[i].content.find(name);
-            while (pos != string::npos) {
-                SearchResult result;
-                result.name = name;
-                result.book = book.name;
-                result.page = 1; // 假设每本书第一页从1开始
-                result.chapter = book.chapters[i].title;
-                results.push_back(result);
+        for (const auto & chapter : book.chapters) {
+            for(size_t i = 0 ; i < chapter.pages.size() ; i++){
+                size_t pos = chapter.pages[i].content.find(name);
+                while (pos != string::npos) {
+                    SearchResult result;
+                    result.name = name;
+                    result.book = book.name;
+                    result.page = chapter.pages[i].num;
+                    result.chapter = chapter.title;
+                    results.push_back(result);
 
-                // 继续搜索下一个出现位置
-                pos = book.chapters[i].content.find(name, pos + 1);
+                    // 继续搜索下一个出现位置
+                    pos = chapter.pages[i].content.find(name, pos + 1);
+                }
             }
+
         }
     }
 
@@ -133,3 +163,4 @@ int main() {
 
     return 0;
 }
+
