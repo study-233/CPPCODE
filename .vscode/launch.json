@@ -62,7 +62,7 @@
             "stopAtEntry": false,
             "cwd": "${fileDirname}",
             "environment": [],
-            "externalConsole": false,
+            "externalConsole": true,
             "MIMode": "gdb",
             "miDebuggerPath": "F:\\mingw64\\bin\\gdb.exe",
             "setupCommands": [
@@ -88,7 +88,7 @@
             "stopAtEntry": false,
             "cwd": "${fileDirname}",
             "environment": [],
-            "externalConsole": false,
+            "externalConsole": true,
             "MIMode": "lldb",
             "miDebuggerPath": "D:\\Program Files (x86)\\cpeditor\\mingw64\\bin\\lldb.exe",
             "setupCommands": [
