@@ -8,38 +8,25 @@
 using namespace std;
 
 // 结构体用于存储查询结果
-struct SearchResult {
-    string name;    // 人名/地名
-    int page;       // 页码
-    string chapter; // 章节
-    string book;    // 书名
-};
-// 结构体用于表示每页的内容
-struct Page {
-    int num;
-    string content;
+class Text {
+    public:
+        int page;       // 页码
+        string chapter; // 章节
+        string book;    // 书名
+        string content; // 内容
 };
 
-// 结构体用于表示每个章节的标题和内容
-struct Chapter {
-    string title;
-    vector<Page> pages;
-};
+vector <Text> text;
+Text TempContent;
 
-// 结构体用于表示每本书的书名和章节信息
-struct Book {
-    string name;
-    vector<Chapter> chapters;
-};
-
-// 函数用于读取文本文件内容并存储到向量中
-vector<Book> readBooks(const vector<string>& filenames) {
-    vector<Book> allBooks;
+// 读取文件，存储到text中
+void readBooks(const vector<string>& filenames) {
 
     for (string filename : filenames) {
-        Book book;
-        book.name = filename; // 假设文件名即为书名
-        vector<Chapter> chapters;
+        TempContent.book = filename; // 假设文件名即为书名
+        TempContent.page = 1;
+        TempContent.chapter = "Chapter Zero";
+        
 
         ifstream file;
         file.open(filename+".txt");
@@ -48,90 +35,54 @@ vector<Book> readBooks(const vector<string>& filenames) {
             continue;
         }
 
-        Page page;
-        Chapter chapter;
-        vector<Page> pages;
-        string line;
         int page_num;
-        
-        bool ischapter1 = true;
+        string line;
+        bool isChapter_begin = true;
 
         while (getline(file, line)) {
             if (line.substr(0,7) == "Chapter" || line.substr(0,7) == "CHAPTER") {
-                //cout<< line <<endl;
-                if(ischapter1){
-                    ischapter1 = false;
-                }
-                else {
-                    chapter.pages = pages;
-                    chapters.push_back(chapter);
-                    pages.clear();
-                }
-                chapter.title = line;
+                TempContent.chapter = line;
             }
             else if ('0' < line[0] && line[0] <= '9' && line.size() < 4){
                 istringstream ss(line);
-                ss >> page.num;
-                pages.push_back(page);
-                //cout<<page.num<<endl;
-                page.content = "";
-                page.num = 0;
+                ss >> page_num;
+                TempContent.page = page_num + 1;
             }
             else {
-                page.content += line;
+                TempContent.content = line;
+                text.push_back(TempContent);
             }
-
         }
-        chapter.pages = pages;
-        chapters.push_back(chapter);
-
         file.close();
-        book.chapters = chapters;
-        allBooks.push_back(book);
     }
-
-    return allBooks;
 }
 
 // 函数用于搜索人名/地名在文本中的出现位置并记录相关信息
-vector<SearchResult> searchNameInBooks(const vector<Book>& books, const string& name) {
-    vector<SearchResult> results;
-
-    for (const auto& book : books) {
-        for (const auto & chapter : book.chapters) {
-            for(size_t i = 0 ; i < chapter.pages.size() ; i++){
-                size_t pos = chapter.pages[i].content.find(name);
-                while (pos != string::npos) {
-                    SearchResult result;
-                    result.name = name;
-                    result.book = book.name;
-                    result.page = chapter.pages[i].num;
-                    result.chapter = chapter.title;
-                    results.push_back(result);
-
-                    // 继续搜索下一个出现位置
-                    pos = chapter.pages[i].content.find(name, pos + 1);
-                }
-            }
-
+void searchNameInBooks(string info, vector<int> & s)    //查找信息
+{
+    int all_len = text.size();
+    string::size_type p;
+    for (int i = 0; i < all_len; i++)
+    {
+        p = text[i].content.find(info);
+        while (!(p == string::npos)){
+            s.push_back(i);
+            p = text[i].content.find(info,p+1);
         }
+            
     }
-
-    // 按照页码排序结果
-    sort(results.begin(), results.end(), [](const SearchResult& a, const SearchResult& b) {
-        return a.page < b.page;
-    });
-
-    return results;
 }
 
 // 函数用于显示查询结果
-void displayResults(const vector<SearchResult>& results) {
-    cout << "序号\t人名/地名\t书名\t页码\t章节\n";
-    for (size_t i = 0; i < results.size(); ++i) {
-        cout << i + 1 << "\t" << results[i].name << "\t" << results[i].book << "\t"
-             << results[i].page << "\t" << results[i].chapter << endl;
-    }
+void displayResults(vector<int> s, string info) {
+    cout << "序号       人名/地名       页码       章节       书名" << endl;
+	for (int i = 0; i < s.size(); i++)
+		cout << "  " 
+             << i + 1           << "\t"
+		     << info            << "\t"
+		     << text[s[i]].page       << "\t"
+		     << text[s[i]].chapter    << "\t"
+		     << text[s[i]].book   << endl;
 }
 
 int main() {
@@ -148,19 +99,35 @@ int main() {
     };
 
     // 读取文本文件内容
-    vector<Book> allBooks = readBooks(filenames);
+    readBooks(filenames);
 
     // 用户输入要查询的人名/地名
-    string query;
+    string info;
     cout << "请输入要查询的人名/地名：";
-    cin >> query;
+    cin >> info;
 
     // 搜索人名/地名
-    vector<SearchResult> results = searchNameInBooks(allBooks, query);
+    vector<int> search_Info;
+    searchNameInBooks(info, search_Info);
 
     // 显示查询结果
-    displayResults(results);
-
+    if (!search_Info.empty())
+    {
+        displayResults(search_Info, info);       
+        cout << endl << "请输入要显示的段落的序号: " << endl;
+		while (1)
+		{	
+            int x = 1;
+			cin >> x;
+            if (x == 0)
+                break;
+			cout << endl << text[search_Info[x - 1]-1].content << endl << text[search_Info[x - 1]].content << endl;
+            cout << endl << "若要继续显示结果，请继续输入序号，否则输入 0:" << endl;
+		}
+    }
+    else
+        cout << "无法查询到 ! ! !" << endl;
     return 0;
+
 }
 
